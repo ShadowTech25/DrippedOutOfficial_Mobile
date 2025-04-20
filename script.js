@@ -1,15 +1,13 @@
-// Hamburger Toggle
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.querySelector(".hamburger");
-  const navSection = document.querySelector(".nav-section");
-  if (hamburger && navSection) {
-    hamburger.addEventListener("click", () => {
-      navSection.classList.toggle("active");
-    });
-  }
-});
+// Hamburger nav
+const hamburger = document.querySelector(".hamburger");
+const navSection = document.querySelector(".nav-section");
+if (hamburger && navSection) {
+  hamburger.addEventListener("click", () => {
+    navSection.classList.toggle("active");
+  });
+}
 
-// Account Menu
+// Account menu
 const accountMenu = document.getElementById("accountMenu");
 const user = JSON.parse(localStorage.getItem("drip_user"));
 if (accountMenu) {
@@ -37,7 +35,7 @@ function logout() {
   window.location.href = "index.html";
 }
 
-// Cart Logic
+// Add to cart
 function addToCartFromCard(card) {
   const name = card.querySelector('h3')?.textContent;
   const price = card.querySelector('.price')?.textContent;
@@ -47,7 +45,6 @@ function addToCartFromCard(card) {
   localStorage.setItem("cart", JSON.stringify(cart));
   alert(`${name} added to cart.`);
 }
-
 function setupCartButtons() {
   const buttons = document.querySelectorAll('.buy-button');
   buttons.forEach(button => {
@@ -58,6 +55,7 @@ function setupCartButtons() {
   });
 }
 
+// Remove from cart
 function removeFromCart(index) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.splice(index, 1);
@@ -65,6 +63,7 @@ function removeFromCart(index) {
   location.reload();
 }
 
+// Render cart
 function renderCart(containerId, totalId, includeRemove = true) {
   const container = document.getElementById(containerId);
   const totalLabel = document.getElementById(totalId);
@@ -85,7 +84,7 @@ function renderCart(containerId, totalId, includeRemove = true) {
     const div = document.createElement("div");
     div.className = "cart-card";
     div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
+      <img src="${product.image}" alt="${product.name}" />
       <h3>${product.name}</h3>
       <p>${product.price}</p>
       ${includeRemove ? `<button class="remove-button" onclick="removeFromCart(${index})">Remove</button>` : ''}
@@ -97,6 +96,7 @@ function renderCart(containerId, totalId, includeRemove = true) {
   totalLabel.textContent = `Total: $${total.toFixed(2)}`;
 }
 
+// Load past purchases
 function loadPastOrders(containerId) {
   const orders = JSON.parse(localStorage.getItem("pastOrders")) || [];
   const container = document.getElementById(containerId);
@@ -117,7 +117,7 @@ function loadPastOrders(containerId) {
       const itemDiv = document.createElement("div");
       itemDiv.className = "order-item";
       itemDiv.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
+        <img src="${item.image}" alt="${item.name}" />
         <h4>${item.name}</h4>
         <p>${item.price}</p>
       `;
@@ -126,4 +126,11 @@ function loadPastOrders(containerId) {
 
     container.appendChild(div);
   });
+}
+
+// PWA Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registered'))
+    .catch(err => console.error('Service Worker error:', err));
 }
