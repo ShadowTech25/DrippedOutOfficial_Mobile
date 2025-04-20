@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Dripped Out</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Dripped Out</div>
+      <div class="nav-section">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="products.html">Shop</a>
+            <ul class="dropdown">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="checkout.html" class="active">Checkout</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <ul class="account-links" id="accountMenu"></ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="checkout-container">
+      <h1>Checkout</h1>
+      <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Shipping Address" required>
+        <textarea placeholder="Order Notes (optional)" rows="4"></textarea>
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+    <div style="text-align:center;">
+      <a href="index.html">Home</a> |
+      <a href="products.html">Shop</a> |
+      <a href="about.html">About</a> |
+      <a href="cart.html">Cart</a> |
+      <a href="checkout.html">Checkout</a>
+    </div>
+  </footer>
+
+  <script>
+    const accountMenu = document.getElementById("accountMenu");
+    const user = JSON.parse(localStorage.getItem("drip_user"));
+
+    if (user) {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>`;
+    } else {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </li>`;
+    }
+
+    function logout() {
+      localStorage.removeItem("drip_user");
+      window.location.href = "index.html";
+    }
+
+    // Place Order Logic
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      const pastOrders = JSON.parse(localStorage.getItem("pastOrders")) || [];
+
+      const newOrder = {
+        items: cart,
+        date: new Date().toLocaleString()
+      };
+
+      pastOrders.push(newOrder);
+      localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
+      localStorage.removeItem("cart");
+
+      alert("Order placed! Thanks for shopping with Dripped Out.");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
