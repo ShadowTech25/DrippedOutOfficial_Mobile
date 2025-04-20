@@ -10,6 +10,11 @@
   <header>
     <nav class="navbar">
       <div class="logo">Dripped Out</div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <div class="nav-section">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -46,34 +51,16 @@
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    const accountMenu = document.getElementById("accountMenu");
     const user = JSON.parse(localStorage.getItem("drip_user"));
-
-    if (user) {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="profile.html" class="active">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>`;
+    if (!user) {
+      alert("You must be logged in to view your profile.");
+      window.location.href = "login.html";
+    } else {
       document.getElementById("username").value = user.username || "";
       document.getElementById("email").value = user.email || "";
       document.getElementById("shipping").value = user.shipping || "";
-    } else {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>`;
-      alert("You must be logged in to view your profile.");
-      window.location.href = "login.html";
     }
 
     function saveProfile() {
@@ -87,43 +74,7 @@
       alert("Profile updated successfully!");
     }
 
-    function logout() {
-      localStorage.removeItem("drip_user");
-      window.location.href = "index.html";
-    }
-
-    function loadPastOrders() {
-      const orders = JSON.parse(localStorage.getItem("pastOrders")) || [];
-      const container = document.getElementById("purchases");
-
-      if (orders.length === 0) {
-        container.innerHTML += "<p>No past purchases yet.</p>";
-        return;
-      }
-
-      orders.reverse().forEach(order => {
-        const div = document.createElement("div");
-        div.className = "order-block";
-        div.innerHTML = `<h3>Order placed on ${order.date}</h3><div class="order-items"></div>`;
-
-        const itemWrap = div.querySelector(".order-items");
-
-        order.items.forEach(item => {
-          const itemDiv = document.createElement("div");
-          itemDiv.className = "order-item";
-          itemDiv.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <h4>${item.name}</h4>
-            <p>${item.price}</p>
-          `;
-          itemWrap.appendChild(itemDiv);
-        });
-
-        container.appendChild(div);
-      });
-    }
-
-    loadPastOrders();
+    loadPastOrders("purchases");
   </script>
 </body>
 </html>
