@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile - Dripped Out</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Dripped Out</div>
+      <div class="nav-section">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="products.html">Shop</a>
+            <ul class="dropdown">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="checkout.html">Checkout</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <ul class="account-links" id="accountMenu"></ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="profile-container">
+      <h1>Your Profile</h1>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="text" id="shipping" placeholder="Shipping Address" />
+      <button class="save-button" onclick="saveProfile()">Save Changes</button>
+    </div>
+
+    <div class="purchases-container" id="purchases">
+      <h2>Past Purchases</h2>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const accountMenu = document.getElementById("accountMenu");
+    const user = JSON.parse(localStorage.getItem("drip_user"));
+
+    if (user) {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="profile.html" class="active">Profile</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>`;
+      document.getElementById("username").value = user.username || "";
+      document.getElementById("email").value = user.email || "";
+      document.getElementById("shipping").value = user.shipping || "";
+    } else {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </li>`;
+      alert("You must be logged in to view your profile.");
+      window.location.href = "login.html";
+    }
+
+    function saveProfile() {
+      const updated = {
+        ...user,
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        shipping: document.getElementById("shipping").value
+      };
+      localStorage.setItem("drip_user", JSON.stringify(updated));
+      alert("Profile updated successfully!");
+    }
+
+    function logout() {
+      localStorage.removeItem("drip_user");
+      window.location.href = "index.html";
+    }
+
+    function loadPastOrders() {
+      const orders = JSON.parse(localStorage.getItem("pastOrders")) || [];
+      const container = document.getElementById("purchases");
+
+      if (orders.length === 0) {
+        container.innerHTML += "<p>No past purchases yet.</p>";
+        return;
+      }
+
+      orders.reverse().forEach(order => {
+        const div = document.createElement("div");
+        div.className = "order-block";
+        div.innerHTML = `<h3>Order placed on ${order.date}</h3><div class="order-items"></div>`;
+
+        const itemWrap = div.querySelector(".order-items");
+
+        order.items.forEach(item => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "order-item";
+          itemDiv.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h4>${item.name}</h4>
+            <p>${item.price}</p>
+          `;
+          itemWrap.appendChild(itemDiv);
+        });
+
+        container.appendChild(div);
+      });
+    }
+
+    loadPastOrders();
+  </script>
+</body>
+</html>
