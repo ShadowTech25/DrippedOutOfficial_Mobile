@@ -56,61 +56,18 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    const accountMenu = document.getElementById("accountMenu");
     const user = JSON.parse(localStorage.getItem("drip_user"));
-
-    if (user) {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html" class="active">Dashboard</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>`;
-      document.getElementById('userName').textContent = user.username || "User";
-      document.getElementById('points').textContent = user.points || 0;
-    } else {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>`;
+    if (!user) {
       alert("You must be logged in to access the dashboard.");
       window.location.href = "login.html";
-    }
-
-    function logout() {
-      localStorage.removeItem("drip_user");
-      window.location.href = "index.html";
-    }
-
-    const cartItems = document.getElementById("cartItems");
-    const cartTotal = document.getElementById("cartTotal");
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    if (cart.length === 0) {
-      cartItems.innerHTML = "<p style='text-align:center;'>Your cart is currently empty.</p>";
     } else {
-      let total = 0;
-      cart.forEach(product => {
-        const item = document.createElement('div');
-        item.className = 'cart-item';
-        item.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <h4>${product.name}</h4>
-          <p>${product.price}</p>
-        `;
-        cartItems.appendChild(item);
-        total += parseFloat(product.price.replace('$', ''));
-      });
-      cartTotal.innerHTML = `<strong>Total:</strong> $${total.toFixed(2)}`;
+      document.getElementById("userName").textContent = user.username || "User";
+      document.getElementById("points").textContent = user.points || 0;
     }
+
+    renderCart("cartItems", "cartTotal", false);
   </script>
 </body>
 </html>
