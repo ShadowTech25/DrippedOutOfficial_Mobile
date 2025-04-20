@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Dripped Out</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Dripped Out</div>
+      <div class="nav-section">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="products.html">Shop</a>
+            <ul class="dropdown">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="checkout.html">Checkout</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+        <ul class="account-links" id="accountMenu"></ul>
+      </div>
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <h1>About Dripped Out</h1>
+    <p>
+      Dripped Out Apparel was born in the streets, raised in hustle, and crafted for kings. We don’t just sell clothes—we
+      serve attitude stitched in boldness. Every drop blends urban grit with premium luxury. We’re not chasing trends,
+      we’re setting legacy.
+    </p>
+
+    <div class="faq-section" style="margin-top: 30px;">
+      <div class="faq">
+        <h3>Shipping & Returns Policy</h3>
+        <p>We ship worldwide within 7 business days. Free shipping over $150. Not satisfied? Return your gear in 14 days.</p>
+      </div>
+      <div class="faq">
+        <h3>Why Shop at D.O.A</h3>
+        <p>Limited-run collections, premium materials, built for street legends. This isn’t merch, it’s movement.</p>
+      </div>
+      <div class="faq">
+        <h3>Collaborate With Us</h3>
+        <p>Designers, artists, and creators — let’s make bold waves together. Hit us through our collab form or email.</p>
+      </div>
+    </div>
+
+    <h2 style="color: gold; margin-top: 40px;">Get in Touch</h2>
+    <form style="max-width: 400px; margin-top: 20px;">
+      <input type="text" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+      <input type="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+      <textarea placeholder="Your Message" required style="width: 100%; padding: 10px;"></textarea><br><br>
+      <button type="submit" class="buy-button">Send Message</button>
+    </form>
+  </main>
+
+  <footer class="site-footer" style="margin-top: 40px;">
+    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+    <div style="text-align:center;">
+      <a href="index.html">Home</a> |
+      <a href="products.html">Shop</a> |
+      <a href="about.html">About</a> |
+      <a href="cart.html">Cart</a> |
+      <a href="checkout.html">Checkout</a>
+    </div>
+  </footer>
+
+  <script>
+    const accountMenu = document.getElementById("accountMenu");
+    const user = JSON.parse(localStorage.getItem("drip_user"));
+
+    if (user) {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>`;
+    } else {
+      accountMenu.innerHTML = `
+        <li>
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </li>`;
+    }
+
+    function logout() {
+      localStorage.removeItem("drip_user");
+      window.location.href = "index.html";
+    }
+
+    document.querySelectorAll('.faq h3').forEach(header => {
+      header.addEventListener('click', () => {
+        const open = header.classList.contains('open');
+        document.querySelectorAll('.faq p').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('.faq h3').forEach(h => h.classList.remove('open'));
+        if (!open) {
+          header.classList.add('open');
+          header.nextElementSibling.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
