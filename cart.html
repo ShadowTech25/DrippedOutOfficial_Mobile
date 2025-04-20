@@ -46,70 +46,9 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    const accountMenu = document.getElementById("accountMenu");
-    const user = JSON.parse(localStorage.getItem("drip_user"));
-
-    if (user) {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>`;
-    } else {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>`;
-    }
-
-    function logout() {
-      localStorage.removeItem("drip_user");
-      window.location.href = "index.html";
-    }
-
-    const cartContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-
-    function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cartContainer.innerHTML = '';
-      let total = 0;
-
-      cart.forEach((product, index) => {
-        const div = document.createElement('div');
-        div.className = 'cart-card';
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <p>${product.price}</p>
-          <button class="remove-button" onclick="removeFromCart(${index})">Remove</button>
-        `;
-        cartContainer.appendChild(div);
-        total += parseFloat(product.price.replace('$',''));
-      });
-
-      cartTotal.textContent = cart.length > 0
-        ? `Total: $${total.toFixed(2)}`
-        : "Your cart is empty.";
-    }
-
-    function removeFromCart(index) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      loadCart();
-    }
-
-    loadCart();
+    renderCart("cart-items", "cart-total", true);
   </script>
 </body>
 </html>
