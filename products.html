@@ -10,6 +10,11 @@
   <header>
     <nav class="navbar">
       <div class="logo">Dripped Out</div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <div class="nav-section">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -69,50 +74,9 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    const accountMenu = document.getElementById("accountMenu");
-    const user = JSON.parse(localStorage.getItem("drip_user"));
-
-    if (user) {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>`;
-    } else {
-      accountMenu.innerHTML = `
-        <li>
-          <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>`;
-    }
-
-    function logout() {
-      localStorage.removeItem("drip_user");
-      window.location.href = "index.html";
-    }
-
-    // Add to cart logic
-    const addButtons = document.querySelectorAll('.buy-button');
-    addButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const card = button.closest('.product-card');
-        const name = card.querySelector('h3').textContent;
-        const price = card.querySelector('.price').textContent;
-        const image = card.querySelector('img').src;
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push({ name, price, image });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${name} added to cart.`);
-      });
-    });
+    setupCartButtons();
   </script>
 </body>
 </html>
