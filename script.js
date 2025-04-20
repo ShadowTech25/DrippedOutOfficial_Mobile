@@ -1,14 +1,21 @@
-// ----------------------
-// Account Menu Handling
-// ----------------------
+// Hamburger Toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburger = document.querySelector(".hamburger");
+  const navSection = document.querySelector(".nav-section");
+  if (hamburger && navSection) {
+    hamburger.addEventListener("click", () => {
+      navSection.classList.toggle("active");
+    });
+  }
+});
+
+// Account Menu
 const accountMenu = document.getElementById("accountMenu");
 const user = JSON.parse(localStorage.getItem("drip_user"));
-
 if (accountMenu) {
   if (user) {
     accountMenu.innerHTML = `
-      <li>
-        <a href="#">Account</a>
+      <li><a href="#">Account</a>
         <ul class="dropdown">
           <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="profile.html">Profile</a></li>
@@ -17,8 +24,7 @@ if (accountMenu) {
       </li>`;
   } else {
     accountMenu.innerHTML = `
-      <li>
-        <a href="#">Account</a>
+      <li><a href="#">Account</a>
         <ul class="dropdown">
           <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Sign Up</a></li>
@@ -26,15 +32,12 @@ if (accountMenu) {
       </li>`;
   }
 }
-
 function logout() {
   localStorage.removeItem("drip_user");
   window.location.href = "index.html";
 }
 
-// ----------------------
-// Cart Logic (Add Items)
-// ----------------------
+// Cart Logic
 function addToCartFromCard(card) {
   const name = card.querySelector('h3')?.textContent;
   const price = card.querySelector('.price')?.textContent;
@@ -55,9 +58,6 @@ function setupCartButtons() {
   });
 }
 
-// ----------------------
-// Remove from Cart Logic
-// ----------------------
 function removeFromCart(index) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.splice(index, 1);
@@ -65,9 +65,6 @@ function removeFromCart(index) {
   location.reload();
 }
 
-// ----------------------
-// Render Cart
-// ----------------------
 function renderCart(containerId, totalId, includeRemove = true) {
   const container = document.getElementById(containerId);
   const totalLabel = document.getElementById(totalId);
@@ -100,9 +97,6 @@ function renderCart(containerId, totalId, includeRemove = true) {
   totalLabel.textContent = `Total: $${total.toFixed(2)}`;
 }
 
-// ----------------------
-// Past Orders Loader
-// ----------------------
 function loadPastOrders(containerId) {
   const orders = JSON.parse(localStorage.getItem("pastOrders")) || [];
   const container = document.getElementById(containerId);
@@ -117,7 +111,6 @@ function loadPastOrders(containerId) {
     const div = document.createElement("div");
     div.className = "order-block";
     div.innerHTML = `<h3>Order placed on ${order.date}</h3><div class="order-items"></div>`;
-
     const itemWrap = div.querySelector(".order-items");
 
     order.items.forEach(item => {
