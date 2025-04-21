@@ -1,12 +1,14 @@
-// script.js - FINAL with DOMContentLoaded wrapper and all functionality
+// FINAL script.js with working hamburger, dropdowns, cart, points, and FAQ toggle
 
-document.addEventListener("DOMContentLoaded", () => { // Hamburger toggle const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+document.addEventListener("DOMContentLoaded", () => { const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
 
-// Mobile dropdown toggle const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
+// Dropdown support (mobile) const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
 
-// Account dropdown const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
+// Account nav toggle const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
 
-// Cart count updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons(); });
+updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons();
+
+// About Page FAQ dropdowns const faqs = document.querySelectorAll(".faq"); faqs.forEach(faq => { faq.addEventListener("click", () => { faq.classList.toggle("active"); }); }); });
 
 function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
 
