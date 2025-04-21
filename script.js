@@ -1,16 +1,14 @@
-// FINALIZED hamburger & dropdown nav + cart + points + FAQ support
+// Full featured script.js with hamburger, dropdowns, cart, points, profile, and FAQ
 
-document.addEventListener("DOMContentLoaded", () => { // Hamburger menu const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section");
+document.addEventListener("DOMContentLoaded", () => { // Hamburger toggle const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
 
-if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+// Dropdown toggle (mobile) const navParents = document.querySelectorAll(".nav-links > li, .account-links > li"); navParents.forEach(parent => { const link = parent.querySelector("a"); const dropdown = parent.querySelector(".dropdown"); if (dropdown && link) { link.addEventListener("click", e => { if (window.innerWidth <= 768) { e.preventDefault(); parent.classList.toggle("active"); } }); } });
 
-// Mobile dropdown toggles const navParents = document.querySelectorAll(".nav-links > li, .account-links > li"); navParents.forEach(parent => { const link = parent.querySelector("a"); const submenu = parent.querySelector(".dropdown"); if (submenu && link) { link.addEventListener("click", e => { if (window.innerWidth <= 768) { e.preventDefault(); parent.classList.toggle("active"); } }); } });
+// Account menu rendering const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
 
-// Account dropdown menu rendering const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
+// FAQ dropdowns const faqs = document.querySelectorAll(".faq"); faqs.forEach(faq => { faq.addEventListener("click", () => { faq.classList.toggle("active"); }); });
 
-// Cart updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons();
-
-// About FAQ dropdowns const faqs = document.querySelectorAll(".faq"); faqs.forEach(faq => { faq.addEventListener("click", () => { faq.classList.toggle("active"); }); }); });
+// Cart + product logic updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons(); });
 
 function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
 
@@ -60,5 +58,4 @@ container.appendChild(div);
 function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0; cart.forEach(p => { total += parseFloat(p.price.replace("$", "")); }); if (user) { user.points = (user.points || 0) + Math.floor(total); localStorage.setItem("drip_user", JSON.stringify(user)); } }
 
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js') .then(() => console.log('Service Worker registered')) .catch(err => console.error('Service Worker error:', err)); }
-
 
