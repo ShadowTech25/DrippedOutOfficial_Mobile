@@ -157,11 +157,12 @@ button {
   object-fit: cover;
 }
 
-/* Slider Controls */
+/* Slider Controls — at bottom */
 .slider-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 10px;
+  top: auto;
+  transform: none;
   background: rgba(0, 0, 0, 0.5);
   color: gold;
   border: none;
