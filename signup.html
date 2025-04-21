@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,9 +23,7 @@
         <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>
-
-  <main>
+  </header>  <main>
     <div class="checkout-container">
       <h1>Create Account</h1>
       <form id="signup-form">
@@ -39,14 +36,9 @@
         <a href="login.html" style="color:gold;">Log in</a>
       </p>
     </div>
-  </main>
-
-  <footer class="site-footer">
+  </main>  <footer class="site-footer">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
-  <script>
+  </footer>  <script src="script.js"></script>  <script>
     document.getElementById("signup-form").addEventListener("submit", (e) => {
       e.preventDefault();
       const username = document.getElementById("signup-username").value;
@@ -71,6 +63,5 @@
         .then(() => console.log('Service Worker registered'))
         .catch(err => console.error('Service Worker error:', err));
     }
-  </script>
-</body>
+  </script></body>
 </html>
