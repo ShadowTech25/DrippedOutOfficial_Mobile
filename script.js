@@ -1,14 +1,14 @@
-// script.js - Updated with cart counter, add/remove logic, points system
+// script.js - With dropdown toggle compatibility and cart/points upgrades
 
-// Toggle hamburger const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+// Hamburger Toggle const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+
+// Dropdown Toggle for Mobile const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
 
 // Account Menu const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } } function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
 
-// Show cart count in navbar function updateCartCount() { const cart = JSON.parse(localStorage.getItem("cart")) || []; const cartLinks = document.querySelectorAll("a[href='cart.html']"); cartLinks.forEach(link => { link.textContent = Cart (${cart.length}); }); }
+function updateCartCount() { const cart = JSON.parse(localStorage.getItem("cart")) || []; const cartLinks = document.querySelectorAll("a[href='cart.html']"); cartLinks.forEach(link => { link.textContent = Cart (${cart.length}); }); }
 
-// Add or Remove from Cart function addToCartFromCard(card) { const name = card.querySelector('h3')?.textContent; const price = card.querySelector('.price')?.textContent; const image = card.querySelector('img')?.src; const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const exists = cart.find(item => item.name === name); if (exists) { alert("Item already in cart."); return; } cart.push({ name, price, image }); localStorage.setItem("cart", JSON.stringify(cart)); updateCartCount(); updateProductButtons(); }
+function addToCartFromCard(card) { const name = card.querySelector('h3')?.textContent; const price = card.querySelector('.price')?.textContent; const image = card.querySelector('img')?.src; const cart = JSON.parse(localStorage.getItem("cart")) || []; const exists = cart.find(item => item.name === name); if (exists) { alert("Item already in cart."); return; } cart.push({ name, price, image }); localStorage.setItem("cart", JSON.stringify(cart)); updateCartCount(); updateProductButtons(); }
 
 function removeFromCart(index) { const cart = JSON.parse(localStorage.getItem("cart")) || []; cart.splice(index, 1); localStorage.setItem("cart", JSON.stringify(cart)); location.reload(); }
 
@@ -53,11 +53,11 @@ container.appendChild(div);
 
 }); }
 
-// Award points at checkout (run inside checkout page) function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0;
+function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0;
 
 cart.forEach(p => { total += parseFloat(p.price.replace("$", "")); });
 
 if (user) { user.points = (user.points || 0) + Math.floor(total); localStorage.setItem("drip_user", JSON.stringify(user)); } }
 
-// Register service worker if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js') .then(() => console.log('Service Worker registered')) .catch(err => console.error('Service Worker error:', err)); }
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js') .then(() => console.log('Service Worker registered')) .catch(err => console.error('Service Worker error:', err)); }
 
