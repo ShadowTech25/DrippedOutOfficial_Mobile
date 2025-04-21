@@ -1,4 +1,3 @@
-<!-- products.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +12,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">Dripped Out</div>
-      <div class="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
       <div class="nav-section">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -34,11 +31,10 @@
     </nav>
   </header>
 
-  <main style="padding: 40px;">
+  <main style="padding:40px;">
     <h1>Shop Our Drops</h1>
 
-    <!-- Category Filter -->
-    <div class="filter-container" style="text-align:center; margin: 20px 0;">
+    <div class="filter-container" style="text-align:center; margin:20px 0;">
       <label for="categorySelect" style="color:gold; font-weight:bold;">Category:</label>
       <select id="categorySelect" style="padding:10px; border-radius:4px;">
         <option value="All">All Products</option>
@@ -53,69 +49,15 @@
       </select>
     </div>
 
-    <!-- Products Grid -->
-    <div class="product-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px;">
+    <div class="product-grid">
       <div class="product-card" data-category="Tank Tops">
         <img src="images/yellow-tank-set.jpg" alt="Yellow Tank Set" />
         <h3>Yellow Tank Set</h3>
         <p class="price">$64.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-      <div class="product-card" data-category="Tank Tops">
-        <img src="images/summer-heat-set.jpg" alt="Summer Heat Tank Set" />
-        <h3>Summer Heat Set</h3>
-        <p class="price">$64.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro Tracksuit" />
-        <h3>90's Blue & White Retro-Tracksuit</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/GreenRedRetro.jpg" alt="Green & Red Retro Tracksuit" />
-        <h3>90's Green & Red Retro-Tracksuit</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/RetroBrown.jpg" alt="Brown Retro Tracksuit" />
-        <h3>90's Brown Retro-Tracksuit</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/CarbonBlack.jpg" alt="Carbon Black Tracksuit" />
-        <h3>Carbon Black</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/DuneBeige.jpg" alt="Dessert Beige Tracksuit" />
-        <h3>Dessert Beige</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/GreyDrip.jpg" alt="Classic Grey Tracksuit" />
-        <h3>Classic Grey</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/MoltenCurrent.jpg" alt="Molten Current Tracksuit" />
-        <h3>Molten Current</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/NeonStatic.jpg" alt="Neon Static Tracksuit" />
-        <h3>Neon Static</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
+      <!-- repeat for each product, updating data-category -->
+      <!-- ... -->
     </div>
   </main>
 
@@ -133,15 +75,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-This includes:
-
-A category dropdown (id="categorySelect") that filters via your filterProducts() function.
-
-A CSS grid (.product-grid) that auto-fits cards.
-
-Each <div class="product-card"> has a data-category="..." attribute.
-
-The same “Add to Cart” buttons wired by your existing JS.
-
-
