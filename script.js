@@ -1,4 +1,4 @@
-// script.js — FULL updated script with proper account injection, mobile dropdowns, cart logic, FAQ toggles, and slider fitting
+// script.js — Full updated script with account injection, mobile dropdowns, cart logic, FAQ toggles, and slider sizing
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
@@ -57,11 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
 
-  // 6) INITIALIZE SLIDER SIZING
+  // 6) Initialize Slider Sizing
   fitSliderCards();
 });
 
-// Global Functions
+// Global utility functions
 
 function logout() {
   localStorage.removeItem("drip_user");
@@ -179,18 +179,17 @@ function loadPastOrders(containerId) {
   });
 }
 
-// 7) Slider fitting logic
+// 7) Slider sizing logic
 function fitSliderCards() {
   const slider = document.querySelector(".product-slider");
   if (!slider) return;
-  const cards = slider.querySelectorAll(".product-card");
   const w = slider.clientWidth;
-  cards.forEach(card => {
+  slider.querySelectorAll(".product-card").forEach(card => {
     card.style.minWidth = `${w}px`;
   });
 }
 
-// Re-run fit on resize
+// Re-run on resize
 window.addEventListener("resize", fitSliderCards);
 
 if ("serviceWorker" in navigator) {
