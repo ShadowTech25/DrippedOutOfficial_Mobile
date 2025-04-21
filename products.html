@@ -4,8 +4,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFD700" />
   <link rel="manifest" href="manifest.json" />
-  <title>Shop - Dripped Out</title>
+  <title>Dripped Out - Home</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .product-slider {
+      overflow-x: auto;
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      scroll-snap-type: x mandatory;
+    }
+    .product-card {
+      flex: 0 0 auto;
+      width: 250px;
+      scroll-snap-align: start;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -18,12 +32,12 @@
       </div>
       <div class="nav-section">
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li>
-            <a href="products.html" class="active">Shop</a>
+            <a href="products.html">Shop</a>
             <ul class="dropdown">
               <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html">Cart</a></li>
+              <li><a href="cart.html">Cart (0)</a></li>
               <li><a href="checkout.html">Checkout</a></li>
             </ul>
           </li>
@@ -33,7 +47,11 @@
       </div>
     </nav>
   </header>  <main style="padding: 40px;">
-    <h1>Shop All Products</h1><div class="product-grid">
+    <h1>Welcome to Dripped Out Apparel</h1>
+    <p>Your go-to destination for luxury urban streetwear.</p><img src="images/drip-ad.jpg" alt="Drip Ad" class="banner" style="width: 100%; border: 2px solid gold; border-radius: 10px; margin-top: 20px;" />
+
+<h2 style="margin-top: 50px; color: gold;">Featured Collections</h2>
+<div class="product-slider">
   <div class="product-card">
     <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro">
     <h3>Blue & White Retro</h3>
@@ -60,7 +78,7 @@
   </div>
 </div>
 
-  </main>  <footer class="site-footer">
+  </main>  <footer class="site-footer" style="margin-top: 40px;">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
     <div style="text-align:center;">
       <a href="index.html">Home</a> |
