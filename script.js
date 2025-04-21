@@ -31,18 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 3) Mobile Dropdown Toggle
-  document.querySelectorAll(".nav-links > li, .account-links > li").forEach(parent => {
-    const link = parent.querySelector("a");
-    const dropdown = parent.querySelector(".dropdown");
-    if (dropdown && link) {
-      link.addEventListener("click", e => {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          parent.classList.toggle("active");
-        }
-      });
-    }
-  });
+  document
+    .querySelectorAll(".nav-links > li, .account-links > li")
+    .forEach(parent => {
+      const link = parent.querySelector("a");
+      const dropdown = parent.querySelector(".dropdown");
+      if (dropdown && link) {
+        link.addEventListener("click", e => {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            parent.classList.toggle("active");
+          }
+        });
+      }
+    });
 
   // 4) Cart & Product Buttons
   updateCartCount();
@@ -66,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
   enableDragScroll();
 });
 
-
 // —— Global Functions ——
 
 function logout() {
@@ -76,9 +77,9 @@ function logout() {
 
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.querySelectorAll("a[href='cart.html']").forEach(link => {
-    link.textContent = `Cart (${cart.length})`;
-  });
+  document
+    .querySelectorAll("a[href='cart.html']")
+    .forEach(link => (link.textContent = `Cart (${cart.length})`));
 }
 
 function addToCartFromCard(card) {
@@ -123,79 +124,18 @@ function setupCartButtons() {
 function filterProducts() {
   const sel = document.getElementById("categorySelect").value;
   document.querySelectorAll(".product-card").forEach(card => {
-    card.style.display = (sel === "All" || card.dataset.category === sel) ? "" : "none";
+    card.style.display =
+      sel === "All" || card.dataset.category === sel ? "" : "none";
   });
 }
-
-function renderCart(containerId, totalId, includeRemove = true) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const c = document.getElementById(containerId);
-  const t = document.getElementById(totalId);
-  if (!c || !t) return;
-  c.innerHTML = "";
-  let sum = 0;
-  cart.forEach((prod, i) => {
-    const item = document.createElement("div");
-    item.className = "cart-card";
-    item.innerHTML = `
-      <img src="${prod.image}" alt="${prod.name}" />
-      <h3>${prod.name}</h3>
-      <p>${prod.price}</p>
-      ${includeRemove?`<button onclick="removeFromCart(${i})">Remove</button>`:""}
-    `;
-    c.appendChild(item);
-    sum += parseFloat(prod.price.replace("$",""));
-  });
-  t.textContent = `Total: $${sum.toFixed(2)}`;
-}
-
-function removeFromCart(i) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(i,1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  location.reload();
-}
-
-function awardPoints() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const user = JSON.parse(localStorage.getItem("drip_user"));
-  const total = cart.reduce((s,p)=>s+parseFloat(p.price.replace("$","")),0);
-  if (user) {
-    user.points = (user.points||0) + Math.floor(total);
-    localStorage.setItem("drip_user", JSON.stringify(user));
-  }
-}
-
-function loadPastOrders(id) {
-  const c = document.getElementById(id);
-  const orders = JSON.parse(localStorage.getItem("pastOrders"))||[];
-  if (!c) return;
-  if (!orders.length) return c.innerHTML="<p>No past purchases yet.</p>";
-  orders.reverse().forEach(o=>{
-    const block = document.createElement("div");
-    block.className="order-block";
-    block.innerHTML = `<h3>Order on ${o.date}</h3><div class="order-items"></div>`;
-    o.items.forEach(it=>{
-      const row = document.createElement("div");
-      row.className="order-item";
-      row.innerHTML=`
-        <img src="${it.image}" alt="${it.name}" />
-        <h4>${it.name}</h4>
-        <p>${it.price}</p>`;
-      block.querySelector(".order-items").appendChild(row);
-    });
-    c.appendChild(block);
-  });
-}
-
-
-// —— Slider Logic —— 
 
 function fitSliderCards() {
   const s = document.querySelector(".product-slider");
   if (!s) return;
   const w = s.clientWidth;
-  s.querySelectorAll(".product-card").forEach(c=>c.style.minWidth=`${w}px`);
+  s.querySelectorAll(".product-card").forEach(c => {
+    c.style.minWidth = `${w}px`;
+  });
 }
 
 function initSliderControls() {
@@ -204,7 +144,6 @@ function initSliderControls() {
   const slides = slider.querySelectorAll(".product-card");
   let idx = 0;
 
-  // Prev/Next buttons
   const prev = document.createElement("button");
   prev.className = "slider-btn prev";
   prev.innerHTML = "&#10094;";
@@ -212,7 +151,6 @@ function initSliderControls() {
   next.className = "slider-btn next";
   next.innerHTML = "&#10095;";
 
-  // Append inside the slider
   slider.style.position = "relative";
   slider.appendChild(prev);
   slider.appendChild(next);
@@ -221,30 +159,40 @@ function initSliderControls() {
     slider.scrollTo({ left: i * slider.clientWidth, behavior: "smooth" });
     idx = i;
   }
-  prev.addEventListener("click", () => go((idx - 1 + slides.length) % slides.length));
+  prev.addEventListener("click", () =>
+    go((idx - 1 + slides.length) % slides.length)
+  );
   next.addEventListener("click", () => go((idx + 1) % slides.length));
 
-  // autoplay
   setInterval(() => go((idx + 1) % slides.length), 5000);
 }
 
 function enableDragScroll() {
   const slider = document.querySelector(".product-slider");
   if (!slider) return;
-  let down = false, startX, scr;
+  let down = false,
+    startX,
+    scr;
   slider.style.cursor = "grab";
   slider.addEventListener("mousedown", e => {
-    down = true; slider.classList.add("dragging");
+    down = true;
+    slider.classList.add("dragging");
     startX = e.pageX - slider.offsetLeft;
     scr = slider.scrollLeft;
   });
-  slider.addEventListener("mouseleave", () => { down = false; slider.classList.remove("dragging"); });
-  slider.addEventListener("mouseup", () => { down = false; slider.classList.remove("dragging"); });
+  slider.addEventListener("mouseleave", () => {
+    down = false;
+    slider.classList.remove("dragging");
+  });
+  slider.addEventListener("mouseup", () => {
+    down = false;
+    slider.classList.remove("dragging");
+  });
   slider.addEventListener("mousemove", e => {
     if (!down) return;
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // scroll-fast
+    const walk = (x - startX) * 2;
     slider.scrollLeft = scr - walk;
   });
 }
@@ -252,5 +200,7 @@ function enableDragScroll() {
 window.addEventListener("resize", fitSliderCards);
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js").catch(e => console.error(e));
+  navigator.serviceWorker
+    .register("service-worker.js")
+    .catch(e => console.error(e));
 }
