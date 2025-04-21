@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFD700" />
   <link rel="manifest" href="manifest.json" />
   <title>Shop - Dripped Out</title>
@@ -33,39 +32,35 @@
         <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>
+  </header>  <main style="padding: 40px;">
+    <h1>Shop All Products</h1><div class="product-grid">
+  <div class="product-card">
+    <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro">
+    <h3>Blue & White Retro</h3>
+    <p class="price">$89.99</p>
+    <button class="buy-button">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/GreenRedRetro.jpg" alt="Green & Red Retro">
+    <h3>Green & Red Retro</h3>
+    <p class="price">$89.99</p>
+    <button class="buy-button">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/CarbonBlack.jpg" alt="Carbon Black">
+    <h3>Carbon Black</h3>
+    <p class="price">$99.99</p>
+    <button class="buy-button">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/MoltenCurrent.jpg" alt="Molten Current">
+    <h3>Molten Current</h3>
+    <p class="price">$94.99</p>
+    <button class="buy-button">Add to Cart</button>
+  </div>
+</div>
 
-  <main>
-    <div class="category-filter">
-      <label for="categorySelect">Filter by Category:</label>
-      <select id="categorySelect">
-        <option value="all">All</option>
-        <option value="tracksuits">Tracksuits</option>
-        <option value="hoodies">Hoodies</option>
-        <option value="shirts">Shirts</option>
-        <option value="shorts">Shorts</option>
-        <option value="coats">Coats</option>
-        <option value="buythefit">Buy-The-Fit</option>
-      </select>
-    </div>
-
-    <div class="product-grid category-section tracksuits">
-      <div class="product-card">
-        <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro">
-        <h3>Blue & White Retro</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="images/GreenRedRetro.jpg" alt="Green & Red Retro">
-        <h3>Green & Red Retro</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer">
+  </main>  <footer class="site-footer">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
     <div style="text-align:center;">
       <a href="index.html">Home</a> |
@@ -74,17 +69,7 @@
       <a href="cart.html">Cart</a> |
       <a href="checkout.html">Checkout</a>
     </div>
-  </footer>
-
-  <script src="script.js"></script>
-  <script>
+  </footer>  <script src="script.js"></script>  <script>
     setupCartButtons();
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker error:', err));
-    }
-  </script>
-</body>
+  </script></body>
 </html>
