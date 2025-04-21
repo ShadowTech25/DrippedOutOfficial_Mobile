@@ -206,48 +206,51 @@ function initSliderControls() {
 
   // Prev/Next buttons
   const prev = document.createElement("button");
-  prev.className="slider-btn prev"; prev.innerHTML="&#10094;";
+  prev.className = "slider-btn prev";
+  prev.innerHTML = "&#10094;";
   const next = document.createElement("button");
-  next.className="slider-btn next"; next.innerHTML="&#10095;";
+  next.className = "slider-btn next";
+  next.innerHTML = "&#10095;";
 
-  slider.parentElement.style.position="relative";
-  slider.parentElement.appendChild(prev);
-  slider.parentElement.appendChild(next);
+  // Append inside the slider
+  slider.style.position = "relative";
+  slider.appendChild(prev);
+  slider.appendChild(next);
 
-  function go(i){
-    slider.scrollTo({left:i*slider.clientWidth,behavior:"smooth"});
-    idx=i;
+  function go(i) {
+    slider.scrollTo({ left: i * slider.clientWidth, behavior: "smooth" });
+    idx = i;
   }
-  prev.addEventListener("click",()=>go((idx-1+slides.length)%slides.length));
-  next.addEventListener("click",()=>go((idx+1)%slides.length));
+  prev.addEventListener("click", () => go((idx - 1 + slides.length) % slides.length));
+  next.addEventListener("click", () => go((idx + 1) % slides.length));
 
   // autoplay
-  setInterval(()=>go((idx+1)%slides.length),5000);
+  setInterval(() => go((idx + 1) % slides.length), 5000);
 }
 
 function enableDragScroll() {
   const slider = document.querySelector(".product-slider");
   if (!slider) return;
-  let down=false, startX, scr;
-  slider.style.cursor="grab";
-  slider.addEventListener("mousedown",e=>{
-    down=true; slider.classList.add("dragging");
-    startX=e.pageX - slider.offsetLeft;
-    scr=slider.scrollLeft;
+  let down = false, startX, scr;
+  slider.style.cursor = "grab";
+  slider.addEventListener("mousedown", e => {
+    down = true; slider.classList.add("dragging");
+    startX = e.pageX - slider.offsetLeft;
+    scr = slider.scrollLeft;
   });
-  slider.addEventListener("mouseleave",()=>{down=false;slider.classList.remove("dragging");});
-  slider.addEventListener("mouseup",()=>{down=false;slider.classList.remove("dragging");});
-  slider.addEventListener("mousemove",e=>{
-    if(!down) return;
+  slider.addEventListener("mouseleave", () => { down = false; slider.classList.remove("dragging"); });
+  slider.addEventListener("mouseup", () => { down = false; slider.classList.remove("dragging"); });
+  slider.addEventListener("mousemove", e => {
+    if (!down) return;
     e.preventDefault();
-    const x=e.pageX-slider.offsetLeft;
-    const walk=(x-startX)*2;
-    slider.scrollLeft=scr-walk;
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2; // scroll-fast
+    slider.scrollLeft = scr - walk;
   });
 }
 
-window.addEventListener("resize",fitSliderCards);
+window.addEventListener("resize", fitSliderCards);
 
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js").catch(e=>console.error(e));
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js").catch(e => console.error(e));
 }
