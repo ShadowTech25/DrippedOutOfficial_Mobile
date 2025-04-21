@@ -1,4 +1,4 @@
-// script.js — FULL updated script with proper account injection, mobile dropdowns, cart logic, FAQ toggles, and more
+// script.js — FULL updated script with proper account injection, mobile dropdowns, cart logic, FAQ toggles, and slider fitting
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
@@ -56,6 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".faq").forEach(faq =>
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
+
+  // 6) INITIALIZE SLIDER SIZING
+  fitSliderCards();
 });
 
 // Global Functions
@@ -175,6 +178,20 @@ function loadPastOrders(containerId) {
     container.appendChild(block);
   });
 }
+
+// 7) Slider fitting logic
+function fitSliderCards() {
+  const slider = document.querySelector(".product-slider");
+  if (!slider) return;
+  const cards = slider.querySelectorAll(".product-card");
+  const w = slider.clientWidth;
+  cards.forEach(card => {
+    card.style.minWidth = `${w}px`;
+  });
+}
+
+// Re-run fit on resize
+window.addEventListener("resize", fitSliderCards);
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
