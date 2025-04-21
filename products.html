@@ -1,3 +1,4 @@
+<!-- products.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,69 +33,90 @@
   </header>
 
   <main style="padding:40px;">
-    <h1>Shop Our Tracksuits</h1>
+    <h1>Shop Our Drops</h1>
 
-    <!-- Category Filter (you can leave “All” if you add more categories later) -->
+    <!-- Category Filter -->
     <div class="filter-container" style="text-align:center; margin:20px 0;">
       <label for="categorySelect" style="color:gold; font-weight:bold;">Category:</label>
       <select id="categorySelect" style="padding:10px; border-radius:4px;">
-        <option value="All">All Tracksuits</option>
+        <option value="All">All Products</option>
+        <option value="Tank Tops">Tank Tops</option>
         <option value="Tracksuits">Tracksuits</option>
+        <option value="Hoodies">Hoodies</option>
+        <option value="Pants">Pants</option>
+        <option value="Coats">Coats</option>
+        <option value="Shorts">Shorts</option>
+        <option value="Shirts">Shirts</option>
+        <option value="Buy-The-Fit">Buy-The-Fit</option>
       </select>
     </div>
 
     <!-- Products Grid -->
     <div class="product-grid">
+      <!-- Tank Tops -->
+      <div class="product-card" data-category="Tank Tops">
+        <img src="images/yellow-tank-set.jpg" alt="Yellow Tank Set" />
+        <h3>Yellow Tank Set</h3>
+        <p class="price">$64.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="Tank Tops">
+        <img src="images/summer-heat-set.jpg" alt="Summer Heat Tank Set" />
+        <h3>Summer Heat Set</h3>
+        <p class="price">$64.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <!-- Tracksuits -->
       <div class="product-card" data-category="Tracksuits">
-        <img src="images/BlueWhiteRetro.jpg"
-             alt="90's Blue & White Retro-Tracksuit" />
+        <img src="images/BlueWhiteRetro.jpg" alt="90's Blue & White Retro-Tracksuit" />
         <h3>90's Blue & White Retro-Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-
       <div class="product-card" data-category="Tracksuits">
-        <img src="images/PurpleTurpuoiseRetro.jpg"
-             alt="90's Purple & Turquoise Retro-Tracksuit" />
+        <img src="images/PurpleTurpuoiseRetro.jpg" alt="90's Purple & Turquoise Retro-Tracksuit" />
         <h3>90's Purple & Turquoise Retro-Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-
       <div class="product-card" data-category="Tracksuits">
         <img src="images/CarbonBlack.jpg" alt="Carbon Black Tracksuit" />
-        <h3>Carbon Black</h3>
+        <h3>Carbon Black Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-
       <div class="product-card" data-category="Tracksuits">
         <img src="images/DuneBeige.jpg" alt="Dessert Beige Tracksuit" />
-        <h3>Dessert Beige</h3>
+        <h3>Dessert Beige Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-
       <div class="product-card" data-category="Tracksuits">
         <img src="images/GreyDrip.jpg" alt="Classic Grey Tracksuit" />
-        <h3>Classic Grey</h3>
+        <h3>Classic Grey Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
-
       <div class="product-card" data-category="Tracksuits">
         <img src="images/MoltenCurrent.jpg" alt="Molten Current Tracksuit" />
-        <h3>Molten Current</h3>
+        <h3>Molten Current Tracksuit</h3>
+        <p class="price">$89.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="Tracksuits">
+        <img src="images/NeopStatic.jpg" alt="Neon Static Tracksuit" />
+        <h3>Neon Static Tracksuit</h3>
         <p class="price">$89.99</p>
         <button class="buy-button">Add to Cart</button>
       </div>
 
-      <div class="product-card" data-category="Tracksuits">
-        <img src="images/NeopStatic.jpg" alt="Neon Static Tracksuit" />
-        <h3>Neon Static</h3>
-        <p class="price">$89.99</p>
-        <button class="buy-button">Add to Cart</button>
-      </div>
+      <!-- Placeholder for other categories (add when you have assets) -->
+      <!-- 
+      <div class="product-card" data-category="Hoodies">…</div>
+      <div class="product-card" data-category="Pants">…</div>
+      etc.
+      -->
     </div>
   </main>
 
