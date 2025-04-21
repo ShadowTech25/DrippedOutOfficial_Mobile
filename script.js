@@ -1,4 +1,4 @@
-// script.js — Full updated script with account injection, mobile dropdowns, cart logic, FAQ toggles, and slider sizing
+// script.js — Full updated script with account injection, mobile dropdowns, cart logic, FAQ toggles, AND slider controls
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
@@ -57,8 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
 
-  // 6) Initialize Slider Sizing
+  // 6) Initialize Slider Sizing + Controls
   fitSliderCards();
+  initSliderControls();
 });
 
 // Global utility functions
@@ -189,7 +190,45 @@ function fitSliderCards() {
   });
 }
 
-// Re-run on resize
+// 8) Slider controls + autoplay
+function initSliderControls() {
+  const slider = document.querySelector(".product-slider");
+  if (!slider) return;
+  const slides = slider.querySelectorAll(".product-card");
+  let currentIndex = 0;
+
+  // create buttons
+  const prevBtn = document.createElement("button");
+  prevBtn.className = "slider-btn prev";
+  prevBtn.innerHTML = "&#10094;";
+  const nextBtn = document.createElement("button");
+  nextBtn.className = "slider-btn next";
+  nextBtn.innerHTML = "&#10095;";
+
+  // attach buttons
+  slider.parentElement.style.position = "relative";
+  slider.parentElement.appendChild(prevBtn);
+  slider.parentElement.appendChild(nextBtn);
+
+  function showSlide(idx) {
+    slider.scrollTo({ left: idx * slider.clientWidth, behavior: "smooth" });
+    currentIndex = idx;
+  }
+
+  prevBtn.addEventListener("click", () =>
+    showSlide((currentIndex - 1 + slides.length) % slides.length)
+  );
+  nextBtn.addEventListener("click", () =>
+    showSlide((currentIndex + 1) % slides.length)
+  );
+
+  // autoplay every 5s
+  setInterval(() => {
+    showSlide((currentIndex + 1) % slides.length);
+  }, 5000);
+}
+
+// Re-run fit on resize
 window.addEventListener("resize", fitSliderCards);
 
 if ("serviceWorker" in navigator) {
