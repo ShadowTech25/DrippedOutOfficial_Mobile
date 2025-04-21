@@ -1,4 +1,4 @@
-// script.js — Full updated script with account injection, mobile dropdowns, cart logic, FAQ toggles, AND slider controls
+// script.js — Full site logic: nav, cart, profile, slider & shop filtering
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
@@ -10,31 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2) Inject Account Menu BEFORE binding any dropdown handlers
+  // 2) Inject Account Menu
   const accountMenu = document.getElementById("accountMenu");
   const user = JSON.parse(localStorage.getItem("drip_user"));
   if (accountMenu) {
-    if (user) {
-      accountMenu.innerHTML = `
-        <li><a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>`;
-    } else {
-      accountMenu.innerHTML = `
-        <li><a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>`;
-    }
+    accountMenu.innerHTML = user
+      ? `<li><a href="#">Account</a>
+           <ul class="dropdown">
+             <li><a href="dashboard.html">Dashboard</a></li>
+             <li><a href="profile.html">Profile</a></li>
+             <li><a href="#" onclick="logout()">Logout</a></li>
+           </ul>
+         </li>`
+      : `<li><a href="#">Account</a>
+           <ul class="dropdown">
+             <li><a href="login.html">Login</a></li>
+             <li><a href="signup.html">Sign Up</a></li>
+           </ul>
+         </li>`;
   }
 
-  // 3) Mobile Dropdown Toggle (Shop + Account)
+  // 3) Mobile Dropdown Toggle
   document.querySelectorAll(".nav-links > li, .account-links > li").forEach(parent => {
     const link = parent.querySelector("a");
     const dropdown = parent.querySelector(".dropdown");
@@ -48,21 +44,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 4) Cart & Product Logic
+  // 4) Cart & Product Buttons
   updateCartCount();
   if (document.querySelector(".buy-button")) setupCartButtons();
 
-  // 5) FAQ Toggles (About Page)
+  // 5) FAQ Toggle
   document.querySelectorAll(".faq").forEach(faq =>
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
 
-  // 6) Initialize Slider Sizing + Controls
+  // 6) Shop filter
+  const categorySelect = document.getElementById("categorySelect");
+  if (categorySelect) {
+    categorySelect.addEventListener("change", filterProducts);
+    filterProducts();
+  }
+
+  // 7) Slider setup
   fitSliderCards();
   initSliderControls();
+  enableDragScroll();
 });
 
-// Global utility functions
+
+// —— Global Functions ——
 
 function logout() {
   localStorage.removeItem("drip_user");
@@ -101,11 +106,11 @@ function updateProductButtons() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   document.querySelectorAll(".product-card").forEach(card => {
     const name = card.querySelector("h3")?.textContent;
-    const button = card.querySelector("button");
+    const btn = card.querySelector("button");
     const inCart = cart.find(item => item.name === name);
-    if (button) {
-      button.textContent = inCart ? "Remove from Cart" : "Add to Cart";
-      button.onclick = () =>
+    if (btn) {
+      btn.textContent = inCart ? "Remove from Cart" : "Add to Cart";
+      btn.onclick = () =>
         inCart ? removeFromCartByName(name) : addToCartFromCard(card);
     }
   });
@@ -115,31 +120,38 @@ function setupCartButtons() {
   updateProductButtons();
 }
 
+function filterProducts() {
+  const sel = document.getElementById("categorySelect").value;
+  document.querySelectorAll(".product-card").forEach(card => {
+    card.style.display = (sel === "All" || card.dataset.category === sel) ? "" : "none";
+  });
+}
+
 function renderCart(containerId, totalId, includeRemove = true) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const container = document.getElementById(containerId);
-  const totalLabel = document.getElementById(totalId);
-  if (!container || !totalLabel) return;
-  container.innerHTML = "";
-  let total = 0;
-  cart.forEach((product, index) => {
+  const c = document.getElementById(containerId);
+  const t = document.getElementById(totalId);
+  if (!c || !t) return;
+  c.innerHTML = "";
+  let sum = 0;
+  cart.forEach((prod, i) => {
     const item = document.createElement("div");
     item.className = "cart-card";
     item.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" />
-      <h3>${product.name}</h3>
-      <p>${product.price}</p>
-      ${includeRemove ? `<button onclick="removeFromCart(${index})">Remove</button>` : ""}
+      <img src="${prod.image}" alt="${prod.name}" />
+      <h3>${prod.name}</h3>
+      <p>${prod.price}</p>
+      ${includeRemove?`<button onclick="removeFromCart(${i})">Remove</button>`:""}
     `;
-    container.appendChild(item);
-    total += parseFloat(product.price.replace("$", ""));
+    c.appendChild(item);
+    sum += parseFloat(prod.price.replace("$",""));
   });
-  totalLabel.textContent = `Total: $${total.toFixed(2)}`;
+  t.textContent = `Total: $${sum.toFixed(2)}`;
 }
 
-function removeFromCart(index) {
+function removeFromCart(i) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
+  cart.splice(i,1);
   localStorage.setItem("cart", JSON.stringify(cart));
   location.reload();
 }
@@ -147,92 +159,95 @@ function removeFromCart(index) {
 function awardPoints() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const user = JSON.parse(localStorage.getItem("drip_user"));
-  const total = cart.reduce((sum, p) => sum + parseFloat(p.price.replace("$", "")), 0);
+  const total = cart.reduce((s,p)=>s+parseFloat(p.price.replace("$","")),0);
   if (user) {
-    user.points = (user.points || 0) + Math.floor(total);
+    user.points = (user.points||0) + Math.floor(total);
     localStorage.setItem("drip_user", JSON.stringify(user));
   }
 }
 
-function loadPastOrders(containerId) {
-  const container = document.getElementById(containerId);
-  const orders = JSON.parse(localStorage.getItem("pastOrders")) || [];
-  if (!container) return;
-  if (orders.length === 0) {
-    container.innerHTML = "<p>No past purchases yet.</p>";
-    return;
-  }
-  orders.reverse().forEach(order => {
+function loadPastOrders(id) {
+  const c = document.getElementById(id);
+  const orders = JSON.parse(localStorage.getItem("pastOrders"))||[];
+  if (!c) return;
+  if (!orders.length) return c.innerHTML="<p>No past purchases yet.</p>";
+  orders.reverse().forEach(o=>{
     const block = document.createElement("div");
-    block.className = "order-block";
-    block.innerHTML = `<h3>Order on ${order.date}</h3><div class="order-items"></div>`;
-    order.items.forEach(item => {
+    block.className="order-block";
+    block.innerHTML = `<h3>Order on ${o.date}</h3><div class="order-items"></div>`;
+    o.items.forEach(it=>{
       const row = document.createElement("div");
-      row.className = "order-item";
-      row.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <h4>${item.name}</h4>
-        <p>${item.price}</p>
-      `;
+      row.className="order-item";
+      row.innerHTML=`
+        <img src="${it.image}" alt="${it.name}" />
+        <h4>${it.name}</h4>
+        <p>${it.price}</p>`;
       block.querySelector(".order-items").appendChild(row);
     });
-    container.appendChild(block);
+    c.appendChild(block);
   });
 }
 
-// 7) Slider sizing logic
+
+// —— Slider Logic —— 
+
 function fitSliderCards() {
-  const slider = document.querySelector(".product-slider");
-  if (!slider) return;
-  const w = slider.clientWidth;
-  slider.querySelectorAll(".product-card").forEach(card => {
-    card.style.minWidth = `${w}px`;
-  });
+  const s = document.querySelector(".product-slider");
+  if (!s) return;
+  const w = s.clientWidth;
+  s.querySelectorAll(".product-card").forEach(c=>c.style.minWidth=`${w}px`);
 }
 
-// 8) Slider controls + autoplay
 function initSliderControls() {
   const slider = document.querySelector(".product-slider");
   if (!slider) return;
   const slides = slider.querySelectorAll(".product-card");
-  let currentIndex = 0;
+  let idx = 0;
 
-  // create buttons
-  const prevBtn = document.createElement("button");
-  prevBtn.className = "slider-btn prev";
-  prevBtn.innerHTML = "&#10094;";
-  const nextBtn = document.createElement("button");
-  nextBtn.className = "slider-btn next";
-  nextBtn.innerHTML = "&#10095;";
+  // Prev/Next buttons
+  const prev = document.createElement("button");
+  prev.className="slider-btn prev"; prev.innerHTML="&#10094;";
+  const next = document.createElement("button");
+  next.className="slider-btn next"; next.innerHTML="&#10095;";
 
-  // attach buttons
-  slider.parentElement.style.position = "relative";
-  slider.parentElement.appendChild(prevBtn);
-  slider.parentElement.appendChild(nextBtn);
+  slider.parentElement.style.position="relative";
+  slider.parentElement.appendChild(prev);
+  slider.parentElement.appendChild(next);
 
-  function showSlide(idx) {
-    slider.scrollTo({ left: idx * slider.clientWidth, behavior: "smooth" });
-    currentIndex = idx;
+  function go(i){
+    slider.scrollTo({left:i*slider.clientWidth,behavior:"smooth"});
+    idx=i;
   }
+  prev.addEventListener("click",()=>go((idx-1+slides.length)%slides.length));
+  next.addEventListener("click",()=>go((idx+1)%slides.length));
 
-  prevBtn.addEventListener("click", () =>
-    showSlide((currentIndex - 1 + slides.length) % slides.length)
-  );
-  nextBtn.addEventListener("click", () =>
-    showSlide((currentIndex + 1) % slides.length)
-  );
-
-  // autoplay every 5s
-  setInterval(() => {
-    showSlide((currentIndex + 1) % slides.length);
-  }, 5000);
+  // autoplay
+  setInterval(()=>go((idx+1)%slides.length),5000);
 }
 
-// Re-run fit on resize
-window.addEventListener("resize", fitSliderCards);
+function enableDragScroll() {
+  const slider = document.querySelector(".product-slider");
+  if (!slider) return;
+  let down=false, startX, scr;
+  slider.style.cursor="grab";
+  slider.addEventListener("mousedown",e=>{
+    down=true; slider.classList.add("dragging");
+    startX=e.pageX - slider.offsetLeft;
+    scr=slider.scrollLeft;
+  });
+  slider.addEventListener("mouseleave",()=>{down=false;slider.classList.remove("dragging");});
+  slider.addEventListener("mouseup",()=>{down=false;slider.classList.remove("dragging");});
+  slider.addEventListener("mousemove",e=>{
+    if(!down) return;
+    e.preventDefault();
+    const x=e.pageX-slider.offsetLeft;
+    const walk=(x-startX)*2;
+    slider.scrollLeft=scr-walk;
+  });
+}
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("service-worker.js")
-    .catch(err => console.error("Service Worker error:", err));
+window.addEventListener("resize",fitSliderCards);
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js").catch(e=>console.error(e));
 }
