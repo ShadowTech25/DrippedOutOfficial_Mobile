@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFD700" />
   <link rel="manifest" href="manifest.json" />
-  <title>User Profile - Dripped Out</title>
+  <title>Dashboard - Dripped Out</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,7 +23,7 @@
             <a href="products.html">Shop</a>
             <ul class="dropdown">
               <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html">Cart</a></li>
+              <li><a href="cart.html">Cart (0)</a></li>
               <li><a href="checkout.html">Checkout</a></li>
             </ul>
           </li>
@@ -33,15 +33,18 @@
       </div>
     </nav>
   </header>  <main>
-    <div class="profile-container">
-      <h1>Your Profile</h1>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="text" id="shipping" placeholder="Shipping Address" />
-      <button class="save-button" onclick="saveProfile()">Save Changes</button>
-    </div><div class="purchases-container" id="purchases">
-  <h2>Past Purchases</h2>
+    <h2 style="text-align:center;">Welcome, <span id="userName">User</span></h2><div class="dashboard-card">
+  <h3>Your Rewards</h3>
+  <p>Points earned: <strong id="points">0</strong></p>
 </div>
+
+<div class="dashboard-card">
+  <h3>Your Cart Preview</h3>
+  <div id="cartItems" class="cart-preview"></div>
+  <p id="cartTotal" style="text-align:center; margin-top: 10px;"></p>
+</div>
+
+<button class="logout-btn" onclick="logout()">Logout</button>
 
   </main>  <footer class="site-footer">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
@@ -53,33 +56,17 @@
       <a href="checkout.html">Checkout</a>
     </div>
   </footer>  <script src="script.js"></script>  <script>
+    updateCartCount();
+
     const user = JSON.parse(localStorage.getItem("drip_user"));
     if (!user) {
-      alert("You must be logged in to view your profile.");
+      alert("You must be logged in to access the dashboard.");
       window.location.href = "login.html";
     } else {
-      document.getElementById("username").value = user.username || "";
-      document.getElementById("email").value = user.email || "";
-      document.getElementById("shipping").value = user.shipping || "";
+      document.getElementById("userName").textContent = user.username || "User";
+      document.getElementById("points").textContent = user.points || 0;
     }
 
-    function saveProfile() {
-      const updated = {
-        ...user,
-        username: document.getElementById("username").value,
-        email: document.getElementById("email").value,
-        shipping: document.getElementById("shipping").value
-      };
-      localStorage.setItem("drip_user", JSON.stringify(updated));
-      alert("Profile updated successfully!");
-    }
-
-    loadPastOrders("purchases");
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker error:', err));
-    }
+    renderCart("cartItems", "cartTotal", false);
   </script></body>
 </html>
