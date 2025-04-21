@@ -1,10 +1,10 @@
-/* style.css - Full site styling with desktop hover, mobile dropdown, slider & grid support */
+/* style.css - Full site styling with dropdowns, slider & grid support */
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #000;
-  color: white;
+  background: #000;
+  color: #fff;
   font-family: Arial, sans-serif;
 }
 
@@ -18,12 +18,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
+  background: #000;
   padding: 15px 20px;
   border-bottom: 2px solid gold;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 999;
 }
 
 .hamburger {
@@ -31,14 +29,11 @@ body {
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  z-index: 10;
 }
-
 .hamburger span {
   width: 25px;
   height: 3px;
-  background-color: gold;
-  display: block;
+  background: gold;
 }
 
 .nav-section {
@@ -68,36 +63,28 @@ footer a {
   text-decoration: none;
   font-weight: bold;
 }
-
 .nav-links a:hover,
 .account-links a:hover,
 footer a:hover {
   text-decoration: underline;
 }
-
 footer a:visited {
   color: gold;
 }
 
-/* Hide dropdown by default */
 .dropdown {
   display: none;
   position: absolute;
-  background-color: #000;
+  background: #000;
   border: 1px solid gold;
   top: 30px;
   left: 0;
-  z-index: 999;
   min-width: 150px;
 }
-
-/* Show when .active class added (mobile toggle) */
 .nav-links li.active .dropdown,
 .account-links li.active .dropdown {
   display: block;
 }
-
-/* Desktop hover to show dropdown */
 @media (min-width: 769px) {
   .nav-links li:hover .dropdown,
   .account-links li:hover .dropdown {
@@ -108,7 +95,7 @@ footer a:visited {
 .site-footer {
   margin-top: 40px;
   padding: 20px;
-  background-color: #000;
+  background: #000;
   border-top: 2px solid gold;
   text-align: center;
 }
@@ -128,18 +115,17 @@ button {
 .checkout-btn,
 .save-button,
 .logout-btn {
-  background-color: gold;
-  color: black;
+  background: gold;
+  color: #000;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .buy-button:hover,
 .checkout-btn:hover,
 .save-button:hover,
 .logout-btn:hover {
-  background-color: #ffd700b3;
+  background: #ffd700b3;
 }
 
 /* Featured Slider */
@@ -153,35 +139,30 @@ button {
   position: relative;
   height: 350px;
 }
-
 .product-slider .product-card {
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
-  position: relative;
 }
-
 .product-card {
-  background-color: #111;
+  background: #111;
   border: 1px solid gold;
   border-radius: 8px;
   padding: 10px;
   text-align: center;
 }
-
 .product-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* Slider control buttons */
+/* Slider Controls */
 .slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   color: gold;
   border: none;
   font-size: 1.5rem;
@@ -189,8 +170,12 @@ button {
   cursor: pointer;
   z-index: 1000;
 }
-.slider-btn.prev { left: 10px; }
-.slider-btn.next { right: 10px; }
+.slider-btn.prev {
+  left: 10px;
+}
+.slider-btn.next {
+  right: 10px;
+}
 
 /* Shop Grid */
 .product-grid {
@@ -199,7 +184,6 @@ button {
   gap: 30px;
   padding: 20px;
 }
-
 .product-grid .product-card img {
   width: 100%;
   height: 200px;
@@ -212,24 +196,19 @@ button {
   .hamburger {
     display: flex;
   }
-
   .nav-section {
     display: none;
     flex-direction: column;
     width: 100%;
   }
-
   .nav-section.active {
     display: flex;
   }
-
   .nav-links,
   .account-links {
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
   }
-
   .dropdown {
     position: relative;
     top: 0;
