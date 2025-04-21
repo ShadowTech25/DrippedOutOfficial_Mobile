@@ -1,14 +1,16 @@
-// FINAL script.js with working hamburger, dropdowns, cart, points, and FAQ toggle
+// FINALIZED hamburger & dropdown nav + cart + points + FAQ support
 
-document.addEventListener("DOMContentLoaded", () => { const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+document.addEventListener("DOMContentLoaded", () => { // Hamburger menu const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section");
 
-// Dropdown support (mobile) const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
+if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
 
-// Account nav toggle const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
+// Mobile dropdown toggles const navParents = document.querySelectorAll(".nav-links > li, .account-links > li"); navParents.forEach(parent => { const link = parent.querySelector("a"); const submenu = parent.querySelector(".dropdown"); if (submenu && link) { link.addEventListener("click", e => { if (window.innerWidth <= 768) { e.preventDefault(); parent.classList.toggle("active"); } }); } });
 
-updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons();
+// Account dropdown menu rendering const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
 
-// About Page FAQ dropdowns const faqs = document.querySelectorAll(".faq"); faqs.forEach(faq => { faq.addEventListener("click", () => { faq.classList.toggle("active"); }); }); });
+// Cart updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons();
+
+// About FAQ dropdowns const faqs = document.querySelectorAll(".faq"); faqs.forEach(faq => { faq.addEventListener("click", () => { faq.classList.toggle("active"); }); }); });
 
 function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
 
@@ -58,4 +60,5 @@ container.appendChild(div);
 function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0; cart.forEach(p => { total += parseFloat(p.price.replace("$", "")); }); if (user) { user.points = (user.points || 0) + Math.floor(total); localStorage.setItem("drip_user", JSON.stringify(user)); } }
 
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js') .then(() => console.log('Service Worker registered')) .catch(err => console.error('Service Worker error:', err)); }
+
 
