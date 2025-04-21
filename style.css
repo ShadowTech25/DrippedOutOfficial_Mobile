@@ -1,4 +1,4 @@
-/* Full-featured style.css for nav, dropdowns, cart, FAQ, responsiveness */
+/* style.css - Full site styling */
 
 body { margin: 0; padding: 0; background-color: #000; color: white; font-family: Arial, sans-serif; }
 
@@ -24,13 +24,11 @@ footer a:visited { color: gold; }
 
 .dropdown { display: none; position: absolute; background-color: #000; border: 1px solid gold; top: 30px; left: 0; z-index: 999; min-width: 150px; }
 
-.dropdown li { display: block; }
-
 .nav-links li.active .dropdown, .account-links li.active .dropdown { display: block; }
 
 .site-footer { margin-top: 40px; padding: 20px; background-color: #000; border-top: 2px solid gold; text-align: center; }
 
-.cart-grid, .dashboard-card, .profile-container, .order-item { margin: 20px auto; padding: 15px; background-color: #111; border: 1px solid gold; border-radius: 10px; max-width: 600px; }
+.cart-grid, .dashboard-card, .profile-container, .order-item, .checkout-container, .faq-section { margin: 20px auto; padding: 15px; background-color: #111; border: 1px solid gold; border-radius: 10px; max-width: 600px; }
 
 input, textarea, button { padding: 10px; margin-bottom: 10px; width: 100%; border-radius: 4px; border: none; font-size: 1rem; }
 
