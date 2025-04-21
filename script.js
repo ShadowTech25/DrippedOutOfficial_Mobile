@@ -1,6 +1,7 @@
-// script.js — syntax‑fixed, full feature set
+// script.js — FULL updated script with proper account injection, mobile dropdowns, cart logic, FAQ toggles, and more
+
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Hamburger toggle
+  // 1) Hamburger Menu Toggle
   const hamburger = document.querySelector(".hamburger");
   const navSection = document.querySelector(".nav-section");
   if (hamburger && navSection) {
@@ -9,7 +10,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2) Mobile dropdown toggle
+  // 2) Inject Account Menu BEFORE binding any dropdown handlers
+  const accountMenu = document.getElementById("accountMenu");
+  const user = JSON.parse(localStorage.getItem("drip_user"));
+  if (accountMenu) {
+    if (user) {
+      accountMenu.innerHTML = `
+        <li><a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>`;
+    } else {
+      accountMenu.innerHTML = `
+        <li><a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </li>`;
+    }
+  }
+
+  // 3) Mobile Dropdown Toggle (Shop + Account)
   document.querySelectorAll(".nav-links > li, .account-links > li").forEach(parent => {
     const link = parent.querySelector("a");
     const dropdown = parent.querySelector(".dropdown");
@@ -23,41 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 3) Account menu HTML
-  const accountMenu = document.getElementById("accountMenu");
-  const user = JSON.parse(localStorage.getItem("drip_user"));
-  if (accountMenu) {
-    if (user) {
-      accountMenu.innerHTML = `
-        <li><a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-          </ul>
-        </li>
-      `;
-    } else {
-      accountMenu.innerHTML = `
-        <li><a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </li>
-      `;
-    }
-  }
-
-  // 4) Cart & product logic
+  // 4) Cart & Product Logic
   updateCartCount();
-  if (document.querySelector('.buy-button')) setupCartButtons();
+  if (document.querySelector(".buy-button")) setupCartButtons();
 
-  // 5) FAQ toggles
-  document.querySelectorAll(".faq").forEach(faq => {
-    faq.addEventListener("click", () => faq.classList.toggle("active"));
-  });
+  // 5) FAQ Toggles (About Page)
+  document.querySelectorAll(".faq").forEach(faq =>
+    faq.addEventListener("click", () => faq.classList.toggle("active"))
+  );
 });
+
+// Global Functions
 
 function logout() {
   localStorage.removeItem("drip_user");
@@ -72,9 +73,9 @@ function updateCartCount() {
 }
 
 function addToCartFromCard(card) {
-  const name = card.querySelector('h3')?.textContent;
-  const price = card.querySelector('.price')?.textContent;
-  const image = card.querySelector('img')?.src;
+  const name = card.querySelector("h3")?.textContent;
+  const price = card.querySelector(".price")?.textContent;
+  const image = card.querySelector("img")?.src;
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   if (!cart.find(item => item.name === name)) {
     cart.push({ name, price, image });
@@ -94,9 +95,9 @@ function removeFromCartByName(name) {
 
 function updateProductButtons() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.querySelectorAll('.product-card').forEach(card => {
-    const name = card.querySelector('h3')?.textContent;
-    const button = card.querySelector('button');
+  document.querySelectorAll(".product-card").forEach(card => {
+    const name = card.querySelector("h3")?.textContent;
+    const button = card.querySelector("button");
     const inCart = cart.find(item => item.name === name);
     if (button) {
       button.textContent = inCart ? "Remove from Cart" : "Add to Cart";
@@ -115,7 +116,7 @@ function renderCart(containerId, totalId, includeRemove = true) {
   const container = document.getElementById(containerId);
   const totalLabel = document.getElementById(totalId);
   if (!container || !totalLabel) return;
-  container.innerHTML = '';
+  container.innerHTML = "";
   let total = 0;
   cart.forEach((product, index) => {
     const item = document.createElement("div");
@@ -124,7 +125,7 @@ function renderCart(containerId, totalId, includeRemove = true) {
       <img src="${product.image}" alt="${product.name}" />
       <h3>${product.name}</h3>
       <p>${product.price}</p>
-      ${includeRemove ? `<button onclick="removeFromCart(${index})">Remove</button>` : ''}
+      ${includeRemove ? `<button onclick="removeFromCart(${index})">Remove</button>` : ""}
     `;
     container.appendChild(item);
     total += parseFloat(product.price.replace("$", ""));
@@ -133,7 +134,7 @@ function renderCart(containerId, totalId, includeRemove = true) {
 }
 
 function removeFromCart(index) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   location.reload();
@@ -161,7 +162,6 @@ function loadPastOrders(containerId) {
     const block = document.createElement("div");
     block.className = "order-block";
     block.innerHTML = `<h3>Order on ${order.date}</h3><div class="order-items"></div>`;
-    const itemWrap = block.querySelector(".order-items");
     order.items.forEach(item => {
       const row = document.createElement("div");
       row.className = "order-item";
@@ -170,14 +170,14 @@ function loadPastOrders(containerId) {
         <h4>${item.name}</h4>
         <p>${item.price}</p>
       `;
-      itemWrap.appendChild(row);
+      block.querySelector(".order-items").appendChild(row);
     });
     container.appendChild(block);
   });
 }
 
-if ('serviceWorker' in navigator) {
+if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register('service-worker.js')
-    .catch(err => console.error('SW error:', err));
+    .register("service-worker.js")
+    .catch(err => console.error("Service Worker error:", err));
 }
