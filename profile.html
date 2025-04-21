@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFD700" />
   <link rel="manifest" href="manifest.json" />
   <title>User Profile - Dripped Out</title>
@@ -33,28 +32,27 @@
         <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>
-
-  <main>
+  </header>  <main>
     <div class="profile-container">
       <h1>Your Profile</h1>
       <input type="text" id="username" placeholder="Username" />
       <input type="email" id="email" placeholder="Email" />
       <input type="text" id="shipping" placeholder="Shipping Address" />
       <button class="save-button" onclick="saveProfile()">Save Changes</button>
-    </div>
+    </div><div class="purchases-container" id="purchases">
+  <h2>Past Purchases</h2>
+</div>
 
-    <div class="purchases-container" id="purchases">
-      <h2>Past Purchases</h2>
-    </div>
-  </main>
-
-  <footer class="site-footer">
+  </main>  <footer class="site-footer">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
-  <script>
+    <div style="text-align:center;">
+      <a href="index.html">Home</a> |
+      <a href="products.html">Shop</a> |
+      <a href="about.html">About</a> |
+      <a href="cart.html">Cart</a> |
+      <a href="checkout.html">Checkout</a>
+    </div>
+  </footer>  <script src="script.js"></script>  <script>
     const user = JSON.parse(localStorage.getItem("drip_user"));
     if (!user) {
       alert("You must be logged in to view your profile.");
@@ -83,6 +81,5 @@
         .then(() => console.log('Service Worker registered'))
         .catch(err => console.error('Service Worker error:', err));
     }
-  </script>
-</body>
+  </script></body>
 </html>
