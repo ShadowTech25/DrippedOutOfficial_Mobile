@@ -1,10 +1,14 @@
-// script.js - With dropdown toggle compatibility and cart/points upgrades
+// script.js - FINAL with DOMContentLoaded wrapper and all functionality
 
-// Hamburger Toggle const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
+document.addEventListener("DOMContentLoaded", () => { // Hamburger toggle const hamburger = document.querySelector(".hamburger"); const navSection = document.querySelector(".nav-section"); if (hamburger && navSection) { hamburger.addEventListener("click", () => { navSection.classList.toggle("active"); }); }
 
-// Dropdown Toggle for Mobile const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
+// Mobile dropdown toggle const dropdownToggles = document.querySelectorAll(".nav-links > li"); dropdownToggles.forEach((item) => { item.addEventListener("click", function (e) { if (window.innerWidth <= 768) { const submenu = item.querySelector(".dropdown"); if (submenu) { e.preventDefault(); submenu.style.display = submenu.style.display === "block" ? "none" : "block"; } } }); });
 
-// Account Menu const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } } function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
+// Account dropdown const accountMenu = document.getElementById("accountMenu"); const user = JSON.parse(localStorage.getItem("drip_user")); if (accountMenu) { if (user) { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="dashboard.html">Dashboard</a></li> <li><a href="profile.html">Profile</a></li> <li><a href="#" onclick="logout()">Logout</a></li> </ul> </li>; } else { accountMenu.innerHTML =  <li><a href="#">Account</a> <ul class="dropdown"> <li><a href="login.html">Login</a></li> <li><a href="signup.html">Sign Up</a></li> </ul> </li>; } }
+
+// Cart count updateCartCount(); if (document.querySelector('.buy-button')) setupCartButtons(); });
+
+function logout() { localStorage.removeItem("drip_user"); window.location.href = "index.html"; }
 
 function updateCartCount() { const cart = JSON.parse(localStorage.getItem("cart")) || []; const cartLinks = document.querySelectorAll("a[href='cart.html']"); cartLinks.forEach(link => { link.textContent = Cart (${cart.length}); }); }
 
@@ -14,15 +18,11 @@ function removeFromCart(index) { const cart = JSON.parse(localStorage.getItem("c
 
 function removeFromCartByName(name) { let cart = JSON.parse(localStorage.getItem("cart")) || []; cart = cart.filter(item => item.name !== name); localStorage.setItem("cart", JSON.stringify(cart)); updateCartCount(); updateProductButtons(); }
 
-function updateProductButtons() { const cart = JSON.parse(localStorage.getItem("cart")) || []; const cards = document.querySelectorAll('.product-card');
+function updateProductButtons() { const cart = JSON.parse(localStorage.getItem("cart")) || []; const cards = document.querySelectorAll('.product-card'); cards.forEach(card => { const name = card.querySelector('h3')?.textContent; const inCart = cart.find(item => item.name === name); const button = card.querySelector('button'); if (!button) return; if (inCart) { button.textContent = "Remove from Cart"; button.onclick = () => removeFromCartByName(name); } else { button.textContent = "Add to Cart"; button.onclick = () => addToCartFromCard(card); } }); }
 
-cards.forEach(card => { const name = card.querySelector('h3')?.textContent; const inCart = cart.find(item => item.name === name); const button = card.querySelector('button'); if (!button) return; if (inCart) { button.textContent = "Remove from Cart"; button.onclick = () => removeFromCartByName(name); } else { button.textContent = "Add to Cart"; button.onclick = () => addToCartFromCard(card); } }); }
+function setupCartButtons() { updateProductButtons(); }
 
-function setupCartButtons() { updateCartCount(); updateProductButtons(); }
-
-function renderCart(containerId, totalId, includeRemove = true) { const container = document.getElementById(containerId); const totalLabel = document.getElementById(totalId); const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-if (!container || !totalLabel) return;
+function renderCart(containerId, totalId, includeRemove = true) { const container = document.getElementById(containerId); const totalLabel = document.getElementById(totalId); const cart = JSON.parse(localStorage.getItem("cart")) || []; if (!container || !totalLabel) return;
 
 container.innerHTML = ''; let total = 0;
 
@@ -53,11 +53,7 @@ container.appendChild(div);
 
 }); }
 
-function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0;
-
-cart.forEach(p => { total += parseFloat(p.price.replace("$", "")); });
-
-if (user) { user.points = (user.points || 0) + Math.floor(total); localStorage.setItem("drip_user", JSON.stringify(user)); } }
+function awardPoints() { const user = JSON.parse(localStorage.getItem("drip_user")); const cart = JSON.parse(localStorage.getItem("cart")) || []; let total = 0; cart.forEach(p => { total += parseFloat(p.price.replace("$", "")); }); if (user) { user.points = (user.points || 0) + Math.floor(total); localStorage.setItem("drip_user", JSON.stringify(user)); } }
 
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('service-worker.js') .then(() => console.log('Service Worker registered')) .catch(err => console.error('Service Worker error:', err)); }
 
