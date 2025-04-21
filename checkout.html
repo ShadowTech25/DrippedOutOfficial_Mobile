@@ -23,7 +23,7 @@
             <a href="products.html">Shop</a>
             <ul class="dropdown">
               <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html">Cart</a></li>
+              <li><a href="cart.html">Cart (0)</a></li>
               <li><a href="checkout.html" class="active">Checkout</a></li>
             </ul>
           </li>
@@ -53,9 +53,10 @@
       <a href="checkout.html">Checkout</a>
     </div>
   </footer>  <script src="script.js"></script>  <script>
+    updateCartCount();
+
     document.getElementById("checkout-form").addEventListener("submit", (e) => {
       e.preventDefault();
-
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       if (cart.length === 0) {
         alert("Your cart is empty.");
@@ -63,7 +64,6 @@
       }
 
       const pastOrders = JSON.parse(localStorage.getItem("pastOrders")) || [];
-
       const newOrder = {
         items: cart,
         date: new Date().toLocaleString()
@@ -71,16 +71,15 @@
 
       pastOrders.push(newOrder);
       localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
+
+      // Award points
+      awardPoints();
+
+      // Clear cart
       localStorage.removeItem("cart");
 
       alert("Order placed! Thanks for shopping with Dripped Out.");
       window.location.href = "index.html";
     });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker error:', err));
-    }
   </script></body>
 </html>
