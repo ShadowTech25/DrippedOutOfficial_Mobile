@@ -1,25 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!-- index.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFD700" />
   <link rel="manifest" href="manifest.json" />
-  <title>Dripped Out - Home</title>
+  <title>Dripped Out Apparel</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .product-slider {
-      overflow-x: auto;
-      display: flex;
-      gap: 20px;
-      padding: 20px 0;
-      scroll-snap-type: x mandatory;
-    }
-    .product-card {
-      flex: 0 0 auto;
-      width: 250px;
-      scroll-snap-align: start;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -37,7 +23,7 @@
             <a href="products.html">Shop</a>
             <ul class="dropdown">
               <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html">Cart (0)</a></li>
+              <li><a href="cart.html">Cart</a></li>
               <li><a href="checkout.html">Checkout</a></li>
             </ul>
           </li>
@@ -46,46 +32,41 @@
         <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>  <main style="padding: 40px;">
-    <h1>Welcome to Dripped Out Apparel</h1>
-    <p>Your go-to destination for luxury urban streetwear.</p><img src="images/drip-ad.jpg" alt="Drip Ad" class="banner" style="width: 100%; border: 2px solid gold; border-radius: 10px; margin-top: 20px;" />
-
-<h2 style="margin-top: 50px; color: gold;">Featured Collections</h2>
-<div class="product-slider">
-  <div class="product-card">
-    <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro">
-    <h3>Blue & White Retro</h3>
-    <p class="price">$89.99</p>
-    <button class="buy-button">Add to Cart</button>
-  </div>
-  <div class="product-card">
-    <img src="images/GreenRedRetro.jpg" alt="Green & Red Retro">
-    <h3>Green & Red Retro</h3>
-    <p class="price">$89.99</p>
-    <button class="buy-button">Add to Cart</button>
-  </div>
-  <div class="product-card">
-    <img src="images/CarbonBlack.jpg" alt="Carbon Black">
-    <h3>Carbon Black</h3>
-    <p class="price">$99.99</p>
-    <button class="buy-button">Add to Cart</button>
-  </div>
-  <div class="product-card">
-    <img src="images/MoltenCurrent.jpg" alt="Molten Current">
-    <h3>Molten Current</h3>
-    <p class="price">$94.99</p>
-    <button class="buy-button">Add to Cart</button>
-  </div>
-</div>
-
-  </main>  <footer class="site-footer" style="margin-top: 40px;">
-    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
-    <div style="text-align:center;">
+  </header>  <main>
+    <section class="hero">
+      <h1>Welcome to Dripped Out Apparel</h1>
+      <p>Luxury streetwear built for legends. Shop exclusive drops now.</p>
+    </section>
+    <section class="product-slider">
+      <div class="product-card">
+        <img src="images/BlueWhiteRetro.jpg" alt="Blue & White Retro" />
+        <h3>Blue & White Retro</h3>
+        <p class="price">$89.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="images/GreenRedRetro.jpg" alt="Green & Red Retro" />
+        <h3>Green & Red Retro</h3>
+        <p class="price">$89.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="images/CarbonBlack.jpg" alt="Carbon Black" />
+        <h3>Carbon Black</h3>
+        <p class="price">$99.99</p>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+    </section>
+  </main>  <footer class="site-footer">
+    <p>&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+    <div>
       <a href="index.html">Home</a> |
       <a href="products.html">Shop</a> |
       <a href="about.html">About</a> |
       <a href="cart.html">Cart</a> |
       <a href="checkout.html">Checkout</a>
     </div>
-  </footer>  <script src="script.js"></script></body>
+  </footer>
+  <script src="script.js"></script>
+</body>
 </html>
