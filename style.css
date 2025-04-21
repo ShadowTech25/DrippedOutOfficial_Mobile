@@ -1,4 +1,4 @@
-/* style.css - Full site styling with desktop hover, mobile dropdown, and slider support */
+/* style.css - Full site styling with desktop hover, mobile dropdown, slider support, and slider controls */
 
 body { margin: 0; padding: 0; background-color: #000; color: white; font-family: Arial, sans-serif; }
 
@@ -38,7 +38,7 @@ input, textarea, button { padding: 10px; margin-bottom: 10px; width: 100%; borde
 
 .buy-button:hover, .checkout-btn:hover, .save-button:hover, .logout-btn:hover { background-color: #ffd700b3; }
 
-.product-slider { overflow-x: auto; display: flex; gap: 20px; padding: 20px 0; scroll-snap-type: x mandatory; position: relative; height: 350px; overflow: hidden; }
+/* Slider container & slides */ .product-slider { overflow-x: auto; display: flex; gap: 20px; padding: 20px 0; scroll-snap-type: x mandatory; position: relative; height: 350px; overflow: hidden; }
 
 .product-slider .product-card { flex: 0 0 100%; height: 100%; scroll-snap-align: start; position: relative; }
 
@@ -46,11 +46,13 @@ input, textarea, button { padding: 10px; margin-bottom: 10px; width: 100%; borde
 
 .product-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* Slider control buttons */ .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: gold; border: none; font-size: 1.5rem; padding: 0.5rem; cursor: pointer; z-index: 1000; } .slider-btn.prev { left: 10px; } .slider-btn.next { right: 10px; }
+
 .faq-section .faq { border: 1px solid gold; border-radius: 5px; margin-bottom: 15px; padding: 10px; background: #111; cursor: pointer; }
 
 .faq h3 { margin: 0; color: gold; }
 
-.faq p { display: none; margin-top: 10px; }
+.faq p { display: block; margin-top: 10px; }
 
 .faq.active p { display: block; }
 
