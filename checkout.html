@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!-- checkout.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#FFD700">
   <link rel="manifest" href="manifest.json">
-  <title>Checkout - Dripped Out</title>
+  <title>Checkout - Dripped Out Apparel</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
             <a href="products.html">Shop</a>
             <ul class="dropdown">
               <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html">Cart (0)</a></li>
+              <li><a href="cart.html">Cart</a></li>
               <li><a href="checkout.html" class="active">Checkout</a></li>
             </ul>
           </li>
@@ -54,7 +54,6 @@
     </div>
   </footer>  <script src="script.js"></script>  <script>
     updateCartCount();
-
     document.getElementById("checkout-form").addEventListener("submit", (e) => {
       e.preventDefault();
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -62,19 +61,15 @@
         alert("Your cart is empty.");
         return;
       }
-
       const pastOrders = JSON.parse(localStorage.getItem("pastOrders")) || [];
       const newOrder = {
         items: cart,
         date: new Date().toLocaleString()
       };
-
       pastOrders.push(newOrder);
       localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
-
       awardPoints();
       localStorage.removeItem("cart");
-
       alert("Order placed! Thanks for shopping with Dripped Out.");
       window.location.href = "index.html";
     });
