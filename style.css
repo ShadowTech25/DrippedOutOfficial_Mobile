@@ -1,4 +1,4 @@
-/* style.css — Full Updated Styles */
+/* Full Updated Styles */
 
 /* Reset & Base */
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -157,26 +157,28 @@ details p {
 /* Slider on Index (Updated with Golden Border) */
 .product-slider {
   display: flex;
+  justify-content: center; /* Ensures horizontal centering */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 1rem;
   padding: 1rem;
   border: 2px solid #FFD700; /* Adds a golden border */
   border-radius: 8px; /* Rounded corners for the border */
-  background: #000; /* Matches the theme's background */
+  background: #111; /* Slightly lighter background for contrast */
   margin: 20px auto; /* Centers the slider with auto margins */
   max-width: 90%; /* Prevents the slider from stretching too wide */
 }
 
 /* Shop/Product Listing (Styled Cards) */
 .product-card {
-  flex: 0 0 80%;
+  flex: 0 0 300px; /* Each card is 300px wide */
   scroll-snap-align: start;
   background: #111;
-  border: 1px solid #FFD700; /* Golden border for cards */
+  border: 2px solid #FFD700; /* Golden border for cards */
   border-radius: 8px;
   padding: 1rem;
   text-align: center; /* Centers text and content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a slight shadow for depth */
 }
 
 /* Footer */
