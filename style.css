@@ -154,31 +154,34 @@ details p {
   color: #FFF;
 }
 
-/* Slider on Index (Updated with Golden Border) */
+/* Slider on Index (Updated for Centering and Symmetry) */
 .product-slider {
   display: flex;
-  justify-content: center; /* Ensures horizontal centering */
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 1rem;
+  justify-content: center; /* Center the slider content horizontally */
+  align-items: center; /* Center the content vertically */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Smooth snap scrolling */
+  gap: 1rem; /* Space between product cards */
   padding: 1rem;
-  border: 2px solid #FFD700; /* Adds a golden border */
+  border: 2px solid #FFD700; /* Golden border around the slider box */
   border-radius: 8px; /* Rounded corners for the border */
   background: #111; /* Slightly lighter background for contrast */
-  margin: 20px auto; /* Centers the slider with auto margins */
+  margin: 20px auto; /* Centers the slider box itself */
   max-width: 90%; /* Prevents the slider from stretching too wide */
+  width: 100%; /* Ensures it spans the full container width */
+  box-sizing: border-box; /* Includes padding and border in width calculation */
 }
 
 /* Shop/Product Listing (Styled Cards) */
 .product-card {
   flex: 0 0 300px; /* Each card is 300px wide */
-  scroll-snap-align: start;
-  background: #111;
+  scroll-snap-align: start; /* Ensures smooth snapping */
+  background: #111; /* Matches the slider background */
   border: 2px solid #FFD700; /* Golden border for cards */
-  border-radius: 8px;
+  border-radius: 8px; /* Rounded corners for the cards */
   padding: 1rem;
   text-align: center; /* Centers text and content */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a slight shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a slight shadow for depth */
 }
 
 /* Footer */
