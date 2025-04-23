@@ -21,3 +21,16 @@
     </li>
   </ul>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('mobileNav');
+    const content = document.getElementById('page-content');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      content?.classList.toggle('shifted');
+    });
+  });
+</script>
