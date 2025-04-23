@@ -154,30 +154,29 @@ details p {
   color: #FFF;
 }
 
-/* Slider on Index (mobile‐friendly) */
+/* Slider on Index (Updated with Golden Border) */
 .product-slider {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem;
+  border: 2px solid #FFD700; /* Adds a golden border */
+  border-radius: 8px; /* Rounded corners for the border */
+  background: #000; /* Matches the theme's background */
+  margin: 20px auto; /* Centers the slider with auto margins */
+  max-width: 90%; /* Prevents the slider from stretching too wide */
 }
-.product-slider .product-card {
+
+/* Shop/Product Listing (Styled Cards) */
+.product-card {
   flex: 0 0 80%;
   scroll-snap-align: start;
   background: #111;
+  border: 1px solid #FFD700; /* Golden border for cards */
   border-radius: 8px;
   padding: 1rem;
-}
-
-/* Shop/Product Listing (full-width cards) */
-.product-card {
-  /* Only applies outside .product-slider */
-  width: 100%;
-  background: #111;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  text-align: center; /* Centers text and content */
 }
 
 /* Footer */
@@ -187,10 +186,11 @@ details p {
   padding: 2rem 1rem;
 }
 .site-footer a {
-  color: #FFF;
+  color: #FFD700; /* Golden footer links */
   text-decoration: none;
   margin: 0 0.5rem;
 }
 .site-footer a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Adds underline on hover */
+  color: #FFF; /* Changes color to white on hover */
 }
