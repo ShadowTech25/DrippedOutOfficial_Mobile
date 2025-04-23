@@ -1,4 +1,4 @@
-// script.js — Full site logic: nav, cart, profile, slider & shop filtering
+// script.js — Full site logic: nav, cart, profile, slider & shop filtering, dropdowns
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
@@ -15,36 +15,61 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("drip_user"));
   if (accountMenu) {
     accountMenu.innerHTML = user
-      ? `<li><a href="#">Account</a>
-           <ul class="dropdown">
+      ? `<li class="dropdown">
+           <a href="#" class="dropbtn">Account <span class="arrow">▼</span></a>
+           <ul class="dropdown-content">
              <li><a href="dashboard.html">Dashboard</a></li>
              <li><a href="profile.html">Profile</a></li>
              <li><a href="#" onclick="logout()">Logout</a></li>
            </ul>
          </li>`
-      : `<li><a href="#">Account</a>
-           <ul class="dropdown">
+      : `<li class="dropdown">
+           <a href="#" class="dropbtn">Account <span class="arrow">▼</span></a>
+           <ul class="dropdown-content">
              <li><a href="login.html">Login</a></li>
              <li><a href="signup.html">Sign Up</a></li>
            </ul>
          </li>`;
   }
 
-  // 3) Mobile Dropdown Toggle
-  document
-    .querySelectorAll(".nav-links > li, .account-links > li")
+  // 3) Mobile Dropdown Toggle (≤768px)
+  document.querySelectorAll(".nav-links > li, .account-links > li").forEach(parent => {
+    const link = parent.querySelector("a");
+    const dropdown = parent.querySelector(".dropdown, .dropdown-content");
+    if (dropdown && link) {
+      link.addEventListener("click", e => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          parent.classList.toggle("active");
+        }
+      });
+    }
+  });
+
+  // 3a) Desktop Dropdown Toggle (>768px)
+  document.querySelectorAll(".nav-links > li.dropdown, .account-links > li.dropdown")
     .forEach(parent => {
-      const link = parent.querySelector("a");
-      const dropdown = parent.querySelector(".dropdown");
-      if (dropdown && link) {
-        link.addEventListener("click", e => {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
-            parent.classList.toggle("active");
-          }
+      const btn = parent.querySelector(".dropbtn");
+      if (btn) {
+        btn.addEventListener("click", e => {
+          e.preventDefault();
+          // Close others
+          document
+            .querySelectorAll(".nav-links li.dropdown.open, .account-links li.dropdown.open")
+            .forEach(other => { if (other !== parent) other.classList.remove("open"); });
+          parent.classList.toggle("open");
         });
       }
     });
+
+  // 3b) Click outside to close dropdowns
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".dropdown")) {
+      document
+        .querySelectorAll(".nav-links li.dropdown.open, .account-links li.dropdown.open")
+        .forEach(d => d.classList.remove("open"));
+    }
+  });
 
   // 4) Cart & Product Buttons
   updateCartCount();
@@ -77,9 +102,9 @@ function logout() {
 
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document
-    .querySelectorAll("a[href='cart.html']")
-    .forEach(link => (link.textContent = `Cart (${cart.length})`));
+  document.querySelectorAll("a[href='cart.html']").forEach(link => {
+    link.textContent = `Cart (${cart.length})`;
+  });
 }
 
 function addToCartFromCard(card) {
