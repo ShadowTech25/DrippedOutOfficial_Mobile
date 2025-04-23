@@ -1,4 +1,6 @@
-<!-- about.html --><!DOCTYPE html><html lang="en">
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +14,7 @@
     <nav class="navbar">
       <div class="logo">Dripped Out</div>
       <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
       <div class="nav-section">
         <ul class="nav-links">
@@ -28,37 +28,67 @@
             </ul>
           </li>
           <li><a href="about.html" class="active">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Info <span class="arrow">▼</span></a>
+            <ul class="dropdown-content">
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#articles">Articles</a></li>
+            </ul>
+          </li>
         </ul>
         <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>  <main style="padding: 40px;">
+  </header>
+
+  <main style="padding: 40px;">
     <h1>About Dripped Out Apparel</h1>
-    <p>Dripped Out Apparel is where style meets street. Every thread we drop is stitched with purpose, heat, and legacy.</p><h2 style="color: gold; margin-top: 40px;">FAQ</h2>
-<div class="faq-section">
-  <div class="faq">
-    <h3>Shipping & Returns</h3>
-    <p>We ship globally. Returns accepted within 14 days of delivery. Free shipping over $150.</p>
-  </div>
-  <div class="faq">
-    <h3>Why Shop at D.O.A</h3>
-    <p>Dripped Out means standing out. Exclusive drops, premium quality, community-driven fashion.</p>
-  </div>
-  <div class="faq">
-    <h3>Collaborate With Us</h3>
-    <p>Artists, brands, creators — we’re always open to bold collabs. Hit our contact form or email us.</p>
-  </div>
-</div>
+    <p>Dripped Out Apparel is where style meets street. Every thread we drop is stitched with purpose, heat, and legacy.</p>
 
-<h2 style="margin-top: 50px; color: gold;">Contact Us</h2>
-<form style="max-width: 400px;">
-  <input type="text" placeholder="Your Name" required><br>
-  <input type="email" placeholder="Your Email" required><br>
-  <textarea placeholder="Your Message" rows="5" required></textarea><br>
-  <button type="submit" class="buy-button">Send</button>
-</form>
+    <section id="faq">
+      <h2 style="color: gold; margin-top: 40px;">FAQ</h2>
+      <div class="faq-section">
+        <div class="faq">
+          <h3>Shipping & Returns Policy</h3>
+          <p>We ship worldwide within 7 business days. Free shipping over $150. Not satisfied? Return your gear in 14 days.</p>
+        </div>
+        <div class="faq">
+          <h3>Why Shop at D.O.A</h3>
+          <p>Dripped Out means standing out. Exclusive drops, premium quality, community-driven fashion.</p>
+        </div>
+        <div class="faq">
+          <h3>Collaborate With Us</h3>
+          <p>Artists, brands, creators — we’re always open to bold collabs. Hit our contact form or email us.</p>
+        </div>
+      </div>
+    </section>
 
-  </main>  <footer class="site-footer">
+    <section id="articles">
+      <h2 style="color: gold; margin-top: 50px;">Articles</h2>
+      <div class="articles-section">
+        <article>
+          <h3>Spring Collection Launch</h3>
+          <p>Check out our latest spring releases featuring bold graphics and fresh cuts.</p>
+        </article>
+        <article>
+          <h3>Streetwear Trends 2025</h3>
+          <p>Our take on the biggest trends dominating the streets this year.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 style="margin-top: 50px; color: gold;">Get in Touch</h2>
+      <form style="max-width: 400px;">
+        <input type="text" placeholder="Your Name" required><br>
+        <input type="email" placeholder="Your Email" required><br>
+        <textarea placeholder="Your Message" rows="5" required></textarea><br>
+        <button type="submit" class="buy-button">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
     <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
     <div style="text-align:center;">
       <a href="index.html">Home</a> |
@@ -67,5 +97,8 @@
       <a href="cart.html">Cart</a> |
       <a href="checkout.html">Checkout</a>
     </div>
-  </footer>  <script src="script.js"></script></body>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
