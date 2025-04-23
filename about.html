@@ -2,26 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FFD700">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#FFD700"/>
+  <link rel="manifest" href="manifest.json"/>
   <title>About Us – Dripped Out Apparel</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    /* Basic styling for native dropdowns */
+    /* Inline dropdown styling — move to style.css if you prefer */
     details {
+      background: #000;
       border: 1px solid #FFD700;
       border-radius: 4px;
       margin: 1em 0;
       padding: 0.5em 1em;
-      background: #111;
     }
     summary {
       list-style: none;
       cursor: pointer;
       font-size: 1.1rem;
-      color: #ffd;
+      color: #FFD700;
       outline: none;
     }
     summary::-webkit-details-marker { display: none; }
@@ -35,7 +35,7 @@
     }
     details p {
       margin: 0.75em 0 0;
-      color: #fff;
+      color: #FFF;
       line-height: 1.4;
     }
   </style>
@@ -43,17 +43,39 @@
 <body>
   <header>
     <nav class="navbar">
-      <!-- …your existing nav… -->
+      <div class="logo">Dripped Out</div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+
+      <div class="nav-section">
+        <!-- Main links -->
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+
+        <!-- Account portal on the right -->
+        <ul class="account-links">
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account <span class="arrow">▼</span></a>
+            <ul class="dropdown-content">
+              <li><a href="login.html">Log In</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </nav>
   </header>
 
-  <main style="padding:40px; color:#fff; background:#000;">
+  <main style="padding:40px; background:#000; color:#FFF;">
     <h1>About Dripped Out Apparel</h1>
     <p>Dripped Out Apparel is where style meets street. Every thread we drop is stitched with purpose, heat, and legacy.</p>
 
     <!-- FAQ -->
     <section id="faq">
-      <h2 style="color:gold; margin-top:1.5em;">FAQ</h2>
+      <h2 style="color:#FFD700; margin-top:1.5em;">FAQ</h2>
 
       <details>
         <summary>Shipping &amp; Returns Policy</summary>
@@ -73,7 +95,7 @@
 
     <!-- Articles -->
     <section id="articles">
-      <h2 style="color:gold; margin-top:2em;">Articles</h2>
+      <h2 style="color:#FFD700; margin-top:2em;">Articles</h2>
 
       <details>
         <summary>Spring Collection Launch</summary>
@@ -88,7 +110,7 @@
 
     <!-- Contact -->
     <section id="contact">
-      <h2 style="color:gold; margin-top:2em;">Get in Touch</h2>
+      <h2 style="color:#FFD700; margin-top:2em;">Get in Touch</h2>
       <form style="max-width:400px;">
         <input type="text" placeholder="Your Name" required><br><br>
         <input type="email" placeholder="Your Email" required><br><br>
@@ -99,7 +121,14 @@
   </main>
 
   <footer class="site-footer">
-    <!-- …your existing footer… -->
+    <p style="text-align:center; color:#FFF;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+    <div style="text-align:center;">
+      <a href="index.html">Home</a> |
+      <a href="products.html">Shop</a> |
+      <a href="about.html">About</a> |
+      <a href="cart.html">Cart</a> |
+      <a href="checkout.html">Checkout</a>
+    </div>
   </footer>
 </body>
 </html>
