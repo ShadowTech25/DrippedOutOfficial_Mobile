@@ -1,134 +1,145 @@
-<!-- about.html --><!DOCTYPE html><html lang="en">
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FFD700">
-  <link rel="manifest" href="manifest.json">
-  <title>About Us - Dripped Out Apparel</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#FFD700"/>
+  <link rel="manifest" href="manifest.json"/>
+  <title>About Us – Dripped Out Apparel</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* MOBILE NAV: hide by default, show when .active */
+    @media (max-width: 768px) {
+      .nav-section {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #000;
+        position: absolute;
+        top: 60px; /* adjust to your navbar height */
+        left: 0;
+        padding: 1rem;
+        gap: 1rem;
+      }
+      .nav-section.active {
+        display: flex;
+      }
+      .nav-links, .account-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .nav-links li, .account-links li {
+        margin: 0;
+      }
+    }
+
+    /* DETAILS dropdown styling */
+    details {
+      background: #000;
+      border: 1px solid #FFD700;
+      border-radius: 4px;
+      margin: 1em 0;
+      padding: 0.5em 1em;
+    }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #FFD700;
+      outline: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '▼';
+      float: right;
+      transition: transform .2s;
+    }
+    details[open] summary::after {
+      transform: rotate(-180deg);
+    }
+    details p {
+      margin: 0.75em 0 0;
+      color: #FFF;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
   <header>
     <nav class="navbar">
       <div class="logo">Dripped Out</div>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+
       <div class="nav-section">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="products.html">Shop</a></li>
           <li><a href="about.html" class="active">About</a></li>
         </ul>
-        <ul class="account-links" id="accountMenu"></ul>
-      </div>
-    </nav>
-  </header>  <main style="padding: 40px;">
-    <h1>About Dripped Out Apparel</h1>
-    <p>Dripped Out Apparel is where style meets street. Every thread we drop is stitched with purpose, heat, and legacy.</p><section id="faq">
-  <h2 style="color: gold; margin-top: 40px;">FAQ</h2>
-  <div class="faq-section">
-    <div class="faq">
-      <h3>Shipping & Returns</h3>
-      <p>We ship globally. Returns accepted within 14 days of delivery. Free shipping over $150.</p>
-    </div>
-    <div class="faq">
-      <h3>Why Shop at D.O.A</h3>
-      <p>Dripped Out means standing out. Exclusive drops, premium quality, community-driven fashion.</p>
-    </div>
-    <div class="faq">
-      <h3>Collaborate With Us</h3>
-      <p>Artists, brands, creators — we’re always open to bold collabs. Hit our contact form or email us.</p>
-    </div>
-  </div>
-</section>
 
-<section id="articles">
-  <h2 style="color: gold; margin-top: 50px;">Articles</h2>
-  <div class="articles-section">
-    <article>
-      <h3>Spring Collection Launch</h3>
-      <p>Check out our latest spring releases featuring bold graphics and fresh cuts.</p>
-      <a href="#" class="read-more">Read more</a>
-    </article>
-    <article>
-      <h3>Streetwear Trends 2025</h3>
-      <p>Our take on the biggest trends dominating the streets this year.</p>
-      <a href="#" class="read-more">Read more</a>
-    </article>
-  </div>
-</section>
-
-<section id="contact">
-  <h2 style="margin-top: 50px; color: gold;">Contact Us</h2>
-  <form style="max-width: 400px;">
-    <input type="text" placeholder="Your Name" required><br>
-    <input type="email" placeholder="Your Email" required><br>
-    <textarea placeholder="Your Message" rows="5" required></textarea><br>
-    <button type="submit" class="buy-button">Send</button>
-  </form>
-</section>
-
-  </main>  <footer class="site-footer">
-    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
-    <div style="text-align:center;">
-      <a href="index.html">Home</a> |
-      <a href="products.html">Shop</a> |
-      <a href="about.html">About</a> |
-      <a href="cart.html">Cart</a> |
-      <a href="checkout.html">Checkout</a>
-    </div>
-  </footer>  <script src="script.js"></script></body>
-</html><!-- cart.html --><!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FFD700">
-  <link rel="manifest" href="manifest.json">
-  <title>Your Cart - Dripped Out Apparel</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Dripped Out</div>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="nav-section">
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li>
-            <a href="products.html">Shop</a>
-            <ul class="dropdown">
-              <li><a href="products.html">All Products</a></li>
-              <li><a href="cart.html" class="active">Cart</a></li>
-              <li><a href="checkout.html">Checkout</a></li>
-            </ul>
-          </li>
-          <li><a href="about.html">About</a></li>
+        <ul class="account-links">
           <li class="dropdown">
-            <a href="#" class="dropbtn">Info <span class="arrow">▼</span></a>
+            <a href="#" class="dropbtn">Account <span class="arrow">▼</span></a>
             <ul class="dropdown-content">
-              <li><a href="#faq">FAQ</a></li>
-              <li><a href="#articles">Articles</a></li>
+              <li><a href="login.html">Log In</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
             </ul>
           </li>
         </ul>
-        <ul class="account-links" id="accountMenu"></ul>
       </div>
     </nav>
-  </header>  <main style="padding: 40px;">
-    <h1 style="color: gold;">Your Cart</h1>
-    <div id="cart-items" class="cart-grid"></div>
-    <p id="cart-total" class="cart-total"></p>
-    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-  </main>  <footer class="site-footer">
-    <p style="text-align:center;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
+  </header>
+
+  <main style="padding:40px; background:#000; color:#FFF;">
+    <h1>About Dripped Out Apparel</h1>
+    <p>Dripped Out Apparel is where style meets street. Every thread we drop is stitched with purpose, heat, and legacy.</p>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2 style="color:#FFD700; margin-top:1.5em;">FAQ</h2>
+      <details>
+        <summary>Shipping &amp; Returns Policy</summary>
+        <p>We ship worldwide within 7 business days. Free shipping over $150. Not satisfied? Return your gear in 14 days.</p>
+      </details>
+      <details>
+        <summary>Why Shop at D.O.A</summary>
+        <p>Dripped Out means standing out. Exclusive drops, premium quality, community-driven fashion.</p>
+      </details>
+      <details>
+        <summary>Collaborate With Us</summary>
+        <p>Artists, brands, creators — we’re always open to bold collabs. Hit our contact form or email us.</p>
+      </details>
+    </section>
+
+    <!-- Articles -->
+    <section id="articles">
+      <h2 style="color:#FFD700; margin-top:2em;">Articles</h2>
+      <details>
+        <summary>Spring Collection Launch</summary>
+        <p>Check out our latest spring releases featuring bold graphics and fresh cuts.</p>
+      </details>
+      <details>
+        <summary>Streetwear Trends 2025</summary>
+        <p>Our take on the biggest trends dominating the streets this year.</p>
+      </details>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 style="color:#FFD700; margin-top:2em;">Get in Touch</h2>
+      <form style="max-width:400px;">
+        <input type="text" placeholder="Your Name" required><br><br>
+        <input type="email" placeholder="Your Email" required><br><br>
+        <textarea placeholder="Your Message" rows="5" required></textarea><br><br>
+        <button type="submit" class="buy-button">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p style="text-align:center; color:#FFF;">&copy; 2025 Dripped Out Apparel. All rights reserved.</p>
     <div style="text-align:center;">
       <a href="index.html">Home</a> |
       <a href="products.html">Shop</a> |
@@ -136,38 +147,9 @@
       <a href="cart.html">Cart</a> |
       <a href="checkout.html">Checkout</a>
     </div>
-  </footer>  <script src="script.js"></script></body>
-</html>// script.js // Handles navigation, dropdowns, cart count, cart rendering, and accordions
+  </footer>
 
-document.addEventListener('DOMContentLoaded', () => { // Mobile nav toggle const hamburger = document.querySelector('.hamburger'); const navSection = document.querySelector('.nav-section'); hamburger.addEventListener('click', () => navSection.classList.toggle('nav-active'));
-
-// Dropdown behavior on nav document.querySelectorAll('.dropdown').forEach(drop => { drop.addEventListener('mouseenter', () => drop.classList.add('open')); drop.addEventListener('mouseleave', () => drop.classList.remove('open')); });
-
-// Cart count badge const cartCountElem = document.getElementById('cart-count'); const cart = JSON.parse(localStorage.getItem('cart')) || []; if (cartCountElem) cartCountElem.textContent = cart.length;
-
-// Render cart if on cart page if (document.getElementById('cart-items')) renderCart('cart-items', 'cart-total');
-
-// Initialize accordions on About page initAccordion('#faq .faq', '#faq'); initAccordion('#articles article', '#articles'); });
-
-/**
-
-Initializes accordion behavior for items in a container
-
-@param {string} itemSelector - Selector for each item (headers inside)
-
-@param {string} containerSelector - Selector for the parent section */ function initAccordion(itemSelector, containerSelector) { const items = document.querySelectorAll(itemSelector); items.forEach(item => { const header = item.querySelector('h3'); if (!header) return; // Collect content nodes (all except the header) const contents = Array.from(item.children).filter(el => el !== header); // Hide contents initially contents.forEach(el => el.style.display = 'none'); header.style.cursor = 'pointer'; header.addEventListener('click', () => { const isOpen = contents[0].style.display === 'block'; contents.forEach(el => el.style.display = isOpen ? 'none' : 'block'); item.classList.toggle('open', !isOpen); }); }); }
-
-
-/**
-
-Renders cart items and total (unchanged) */ function renderCart(itemsId, totalId) { const itemsContainer = document.getElementById(itemsId); const totalContainer = document.getElementById(totalId); const checkoutBtn = document.querySelector('.checkout-btn'); const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-
-itemsContainer.innerHTML = ''; if (cart.length === 0) { itemsContainer.innerHTML = '<p>Your cart is empty.</p>'; if (checkoutBtn) checkoutBtn.style.display = 'none'; totalContainer.textContent = ''; return; }
-
-let total = 0; cart.forEach((item, index) => { const price = parseFloat(item.price) || 0; const qty = parseInt(item.quantity) || 1; const subtotal = price * qty; total += subtotal; const itemEl = document.createElement('div'); itemEl.className = 'cart-item'; itemEl.innerHTML = <img src="${item.image || 'placeholder.png'}" alt="${item.name}" /> <div class="item-details"> <h3>${item.name}</h3> <p>Price: $${price.toFixed(2)}</p> <p>Quantity: ${qty}</p> <p>Subtotal: $${subtotal.toFixed(2)}</p> <button class="remove-btn" data-index="${index}">Remove</button> </div>; itemsContainer.appendChild(itemEl); });
-
-totalContainer.textContent = 'Total: $' + total.toFixed(2); if (checkoutBtn) checkoutBtn.style.display = 'inline-block';
-
-itemsContainer.querySelectorAll('.remove-btn').forEach(btn => { btn.addEventListener('click', e => { const idx = parseInt(e.target.getAttribute('data-index')); cart.splice(idx, 1); localStorage.setItem('cart', JSON.stringify(cart)); document.getElementById('cart-count').textContent = cart.length; renderCart(itemsId, totalId); }); }); }
-
+  <!-- make sure your main nav JS is loaded -->
+  <script src="script.js"></script>
+</body>
+</html>
