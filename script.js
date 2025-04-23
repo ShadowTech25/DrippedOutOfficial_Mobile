@@ -3,66 +3,72 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1) Hamburger Menu Toggle
   const hamburger = document.querySelector(".hamburger");
-  const navSection = document.querySelector(".nav-section");
-  if (hamburger && navSection) {
+  const navLinks = document.querySelector(".nav-links");
+  if (hamburger && navLinks) {
     hamburger.addEventListener("click", () => {
-      navSection.classList.toggle("active");
+      navLinks.classList.toggle("active");
     });
   }
 
-  // 2) Inject Account Menu
-  const accountMenu = document.getElementById("accountMenu");
-  const user = JSON.parse(localStorage.getItem("drip_user"));
-  if (accountMenu) {
-    accountMenu.innerHTML = user
-      ? `<li><a href="#">Account</a>
-           <ul class="dropdown">
-             <li><a href="dashboard.html">Dashboard</a></li>
-             <li><a href="profile.html">Profile</a></li>
-             <li><a href="#" onclick="logout()">Logout</a></li>
-           </ul>
-         </li>`
-      : `<li><a href="#">Account</a>
-           <ul class="dropdown">
-             <li><a href="login.html">Login</a></li>
-             <li><a href="signup.html">Sign Up</a></li>
-           </ul>
-         </li>`;
-  }
+  // 2) Dropdown Menus
+  document.querySelectorAll(".dropdown").forEach((dropdown) => {
+    const dropdownToggle = dropdown.querySelector(".dropbtn");
+    const dropdownContent = dropdown.querySelector(".dropdown-content");
 
-  // 3) Mobile Dropdown Toggle
-  document
-    .querySelectorAll(".nav-links > li, .account-links > li")
-    .forEach(parent => {
-      const link = parent.querySelector("a");
-      const dropdown = parent.querySelector(".dropdown");
-      if (dropdown && link) {
-        link.addEventListener("click", e => {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
-            parent.classList.toggle("active");
+    if (dropdownToggle && dropdownContent) {
+      dropdownToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        dropdown.classList.toggle("open");
+
+        // Close other open dropdowns (optional for better UX)
+        document.querySelectorAll(".dropdown").forEach((otherDropdown) => {
+          if (otherDropdown !== dropdown) {
+            otherDropdown.classList.remove("open");
           }
         });
-      }
-    });
+      });
+    }
+  });
 
-  // 4) Cart & Product Buttons
+  // 3) Close Dropdowns on Outside Click
+  document.addEventListener("click", (e) => {
+    const isDropdown = e.target.closest(".dropdown");
+    if (!isDropdown) {
+      document.querySelectorAll(".dropdown").forEach((dropdown) => {
+        dropdown.classList.remove("open");
+      });
+    }
+  });
+
+  // 4) Inject Account Menu
+  const accountMenuMobile = document.getElementById("accountMenuMobile");
+  const user = JSON.parse(localStorage.getItem("drip_user"));
+  if (accountMenuMobile) {
+    accountMenuMobile.innerHTML = user
+      ? `<li><a href="dashboard.html">Dashboard</a></li>
+         <li><a href="profile.html">Profile</a></li>
+         <li><a href="#" onclick="logout()">Logout</a></li>`
+      : `<li><a href="login.html">Login</a></li>
+         <li><a href="signup.html">Sign Up</a></li>`;
+  }
+
+  // 5) Cart & Product Buttons
   updateCartCount();
   if (document.querySelector(".buy-button")) setupCartButtons();
 
-  // 5) FAQ Toggle
-  document.querySelectorAll(".faq").forEach(faq =>
+  // 6) FAQ Toggle
+  document.querySelectorAll(".faq").forEach((faq) =>
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
 
-  // 6) Shop filter
+  // 7) Shop filter
   const categorySelect = document.getElementById("categorySelect");
   if (categorySelect) {
     categorySelect.addEventListener("change", filterProducts);
     filterProducts();
   }
 
-  // 7) Slider setup
+  // 8) Slider setup
   fitSliderCards();
   initSliderControls();
   enableDragScroll();
@@ -79,7 +85,7 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   document
     .querySelectorAll("a[href='cart.html']")
-    .forEach(link => (link.textContent = `Cart (${cart.length})`));
+    .forEach((link) => (link.textContent = `Cart (${cart.length})`));
 }
 
 function addToCartFromCard(card) {
@@ -87,7 +93,7 @@ function addToCartFromCard(card) {
   const price = card.querySelector(".price")?.textContent;
   const image = card.querySelector("img")?.src;
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (!cart.find(item => item.name === name)) {
+  if (!cart.find((item) => item.name === name)) {
     cart.push({ name, price, image });
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
@@ -97,7 +103,7 @@ function addToCartFromCard(card) {
 
 function removeFromCartByName(name) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart = cart.filter(item => item.name !== name);
+  cart = cart.filter((item) => item.name !== name);
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
   updateProductButtons();
@@ -105,10 +111,10 @@ function removeFromCartByName(name) {
 
 function updateProductButtons() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.querySelectorAll(".product-card").forEach(card => {
+  document.querySelectorAll(".product-card").forEach((card) => {
     const name = card.querySelector("h3")?.textContent;
     const btn = card.querySelector("button");
-    const inCart = cart.find(item => item.name === name);
+    const inCart = cart.find((item) => item.name === name);
     if (btn) {
       btn.textContent = inCart ? "Remove from Cart" : "Add to Cart";
       btn.onclick = () =>
@@ -123,7 +129,7 @@ function setupCartButtons() {
 
 function filterProducts() {
   const sel = document.getElementById("categorySelect").value;
-  document.querySelectorAll(".product-card").forEach(card => {
+  document.querySelectorAll(".product-card").forEach((card) => {
     card.style.display =
       sel === "All" || card.dataset.category === sel ? "" : "none";
   });
@@ -133,7 +139,7 @@ function fitSliderCards() {
   const s = document.querySelector(".product-slider");
   if (!s) return;
   const w = s.clientWidth;
-  s.querySelectorAll(".product-card").forEach(c => {
+  s.querySelectorAll(".product-card").forEach((c) => {
     c.style.minWidth = `${w}px`;
   });
 }
@@ -146,10 +152,10 @@ function initSliderControls() {
 
   const prev = document.createElement("button");
   prev.className = "slider-btn prev";
-  prev.innerHTML = "&#10094;";
+  prev.innerHTML = "❮";
   const next = document.createElement("button");
   next.className = "slider-btn next";
-  next.innerHTML = "&#10095;";
+  next.innerHTML = "❯";
 
   slider.style.position = "relative";
   slider.appendChild(prev);
@@ -174,7 +180,7 @@ function enableDragScroll() {
     startX,
     scr;
   slider.style.cursor = "grab";
-  slider.addEventListener("mousedown", e => {
+  slider.addEventListener("mousedown", (e) => {
     down = true;
     slider.classList.add("dragging");
     startX = e.pageX - slider.offsetLeft;
@@ -188,7 +194,7 @@ function enableDragScroll() {
     down = false;
     slider.classList.remove("dragging");
   });
-  slider.addEventListener("mousemove", e => {
+  slider.addEventListener("mousemove", (e) => {
     if (!down) return;
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
@@ -202,5 +208,5 @@ window.addEventListener("resize", fitSliderCards);
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("service-worker.js")
-    .catch(e => console.error(e));
+    .catch((e) => console.error(e));
 }
