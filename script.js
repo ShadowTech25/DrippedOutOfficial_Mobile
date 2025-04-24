@@ -1,7 +1,7 @@
 // script.js — Full site logic: nav, cart, profile, slider & shop filtering
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Hamburger Menu Toggle
+  // Hamburger Menu Toggle
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
   if (hamburger && navLinks) {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2) Dropdown Menus
+  // Dropdown Menus
   document.querySelectorAll(".dropdown").forEach((dropdown) => {
     const dropdownToggle = dropdown.querySelector(".dropbtn");
     const dropdownContent = dropdown.querySelector(".dropdown-content");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 3) Close Dropdowns on Outside Click
+  // Close Dropdowns on Outside Click
   document.addEventListener("click", (e) => {
     const isDropdown = e.target.closest(".dropdown");
     if (!isDropdown) {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 4) Inject Account Menu
+  // Inject Account Menu
   const accountMenuMobile = document.getElementById("accountMenuMobile");
   const user = JSON.parse(localStorage.getItem("drip_user"));
   if (accountMenuMobile) {
@@ -52,29 +52,29 @@ document.addEventListener("DOMContentLoaded", () => {
          <li><a href="signup.html">Sign Up</a></li>`;
   }
 
-  // 5) Cart & Product Buttons
+  // Cart & Product Buttons
   updateCartCount();
   if (document.querySelector(".buy-button")) setupCartButtons();
 
-  // 6) FAQ Toggle
+  // FAQ Toggle
   document.querySelectorAll(".faq").forEach((faq) =>
     faq.addEventListener("click", () => faq.classList.toggle("active"))
   );
 
-  // 7) Shop filter
+  // Shop filter
   const categorySelect = document.getElementById("categorySelect");
   if (categorySelect) {
     categorySelect.addEventListener("change", filterProducts);
     filterProducts();
   }
 
-  // 8) Slider setup
+  // Slider setup
   fitSliderCards();
   initSliderControls();
   enableDragScroll();
 });
 
-// —— Global Functions ——
+// Global Functions
 
 function logout() {
   localStorage.removeItem("drip_user");
